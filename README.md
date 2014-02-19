@@ -1,7 +1,8 @@
 ApiMe
 =========
 
-### Api Me provides a set of helpers to assist with building Restful API's in Ruby on Rails.
+### A gem for building Rails RESTful Api's in Rails
+ApiMe provides a set of helpers to assist with building Restful API's in Ruby on Rails.
 
 #### TODO
 
