@@ -6,6 +6,6 @@ class Api::V1::FailsController < ApplicationController
   private
 
   def fail
-    render json: {:status => "failed"}, status: 404
+    render json: { status: 'failed' }, status: 404
   end
 end

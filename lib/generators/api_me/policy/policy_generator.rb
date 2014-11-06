@@ -2,11 +2,11 @@ module ApiMe
   module Generators
     class PolicyGenerator < ::Rails::Generators::NamedBase
       source_root File.expand_path('../templates', __FILE__)
-      check_class_collision :suffix => "Policy"
+      check_class_collision suffix: 'Policy'
 
-      argument :attributes, :type => :array, :default => [], :banner => "field field"
+      argument :attributes, type: :array, default: [], banner: 'field field'
 
-      class_option :parent, :type => :string, :desc => "The parent class for the generated policy"
+      class_option :parent, type: :string, desc: 'The parent class for the generated policy'
 
       def create_api_policy_file
         template 'policy.rb', File.join('app/policies', "#{singular_name}_policy.rb")
@@ -21,7 +21,7 @@ module ApiMe
       end
 
       def associations
-        attributes.select { |attr| attr.reference? }
+        attributes.select(&:reference?)
       end
 
       def nonpolymorphic_attribute_names
@@ -41,14 +41,14 @@ module ApiMe
       end
 
       def strong_parameters
-        (attributes_names + association_attribute_names).map(&:inspect).join(", ")
+        (attributes_names + association_attribute_names).map(&:inspect).join(', ')
       end
 
       def parent_class_name
         if options[:parent]
           options[:parent]
         else
-          "ApplicationPolicy"
+          'ApplicationPolicy'
         end
       end
 

@@ -2,26 +2,26 @@ module ApiMe
   module Generators
     class ControllerGenerator < ::Rails::Generators::NamedBase
       source_root File.expand_path('../templates', __FILE__)
-      check_class_collision :suffix => "Controller"
+      check_class_collision suffix: 'Controller'
 
-      argument :attributes, :type => :array, :default => [], :banner => "field field"
+      argument :attributes, type: :array, default: [], banner: 'field field'
 
-      class_option :parent, :type => :string, :desc => "The parent class for the generated controller"
+      class_option :parent, type: :string, desc: 'The parent class for the generated controller'
 
       def create_api_controller_file
         template 'controller.rb', File.join('app/controllers',
-                                                controllers_namespace,
-                                                controllers_api_version,
-                                                "#{plural_name}_controller.rb")
+                                            controllers_namespace,
+                                            controllers_api_version,
+                                            "#{plural_name}_controller.rb")
       end
 
       def controllers_namespace
-        "api"
+        'api'
         # @generators.options.fetch(:api, {}).fetch(:namespace, 'api')
       end
 
       def controllers_api_version
-        "v1"
+        'v1'
         # @generators.options.fetch(:api, {}).fetch(:version, 'v1')
       end
 
@@ -34,7 +34,7 @@ module ApiMe
       end
 
       def associations
-        attributes.select { |attr| attr.reference? }
+        attributes.select(&:reference?)
       end
 
       def nonpolymorphic_attribute_names
@@ -54,7 +54,7 @@ module ApiMe
       end
 
       def strong_parameters
-        (attributes_names + association_attribute_names).map(&:inspect).join(", ")
+        (attributes_names + association_attribute_names).map(&:inspect).join(', ')
       end
 
       def parent_class_name
@@ -62,7 +62,7 @@ module ApiMe
         if options[:parent]
           options[:parent]
         else
-          "ApplicationController"
+          'ApplicationController'
         end
       end
 

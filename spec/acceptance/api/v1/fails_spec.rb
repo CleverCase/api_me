@@ -7,6 +7,6 @@ describe 'fails API' do
     expect(last_response.status).to eq(404)
     json = JSON.parse(last_response.body)
 
-    expect(json['status']).to eq("failed")
+    expect(json['status']).to eq('failed')
   end
 end
