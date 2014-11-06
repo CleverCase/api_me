@@ -1,4 +1,4 @@
-[![Gem Version](https://badge.fury.io/rb/api_me.png)](http://badge.fury.io/rb/api_me) [![Build Status](https://travis-ci.org/inigo-llc/api_me.png?branch=master)](https://travis-ci.org/inigo-llc/api_me) [![Code Climate](https://codeclimate.com/github/inigo-llc/api_me/badges/gpa.svg)](https://codeclimate.com/github/inigo-llc/api_me) [![Test Coverage](https://codeclimate.com/github/inigo-llc/api_me/badges/coverage.svg)](https://codeclimate.com/github/inigo-llc/api_me)
+[![Gem Version](https://badge.fury.io/rb/api_me.png)](http://badge.fury.io/rb/api_me) [![Build Status](https://travis-ci.org/inigo-llc/api_me.png?branch=master)](https://travis-ci.org/inigo-llc/api_me) [![Code Climate](https://codeclimate.com/github/inigo-llc/api_me/badges/gpa.svg)](https://codeclimate.com/github/inigo-llc/api_me) [![Dependency Status](https://gemnasium.com/inigo-llc/api_me.svg)](https://gemnasium.com/inigo-llc/api_me)
 ApiMe
 =========
 
@@ -9,6 +9,13 @@ ApiMe provides a set of generators and base classes to assist with building Rest
 
 ### Usage
 `rails g api_me:resource user organization:belongs_to name:string ...`
+
+this generates the following:
+
+* app/controllers/api/v1/users_controller.rb
+* app/policies/user_policy.rb
+* app/serializers/user_serializer.rb
+* app/models/user.rb
 
 Or
 
@@ -25,6 +32,7 @@ end
 
 #### Todo:
 - [ ]  Add the ability to specify resource filters
+- [ ]  Add the ability to specify the api controller path (I.E. app/controllers/api/v2)
 
 ## License
 Copyright (c) 2014, Api Me is developed and maintained by Sam Clopton, and is released under the open MIT Licence.
