@@ -18,8 +18,8 @@ module ApiHelper
 end
 
 RSpec.configure do |config|
-	config.use_transactional_fixtures = true
+  config.use_transactional_fixtures = true
 
-	config.include ApiHelper
+  config.include ApiHelper
 
 end

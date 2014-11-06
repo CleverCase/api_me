@@ -7,13 +7,13 @@ module ApiMe
   extend ActiveSupport::Concern
   include ::Pundit
 
-	included do
+  included do
 
-    protect_from_forgery :with => :null_session
-    rescue_from Pundit::NotAuthorizedError, :with => :user_not_authorized
+    protect_from_forgery with: :null_session
+    rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
-    after_action :verify_authorized, :except => :index
-    after_action :verify_policy_scoped, :only => :index
+    after_action :verify_authorized, except: :index
+    after_action :verify_policy_scoped, only: :index
   end
 
   module ClassMethods
@@ -44,60 +44,56 @@ module ApiMe
     end
 
     def model_klass_name
-      @model_klass_name ||= self.name.demodulize.sub(/Controller$/, '').singularize
+      @model_klass_name ||= name.demodulize.sub(/Controller$/, '').singularize
     end
 
     def serializer_klass_name
-      @serializer_klass_name ||= "#{self.name.demodulize.sub(/Controller$/, '').singularize}Serializer"
+      @serializer_klass_name ||= "#{name.demodulize.sub(/Controller$/, '').singularize}Serializer"
     end
 
     def params_klass_symbol
-      self.model_klass.name.downcase.to_sym
+      model_klass.name.downcase.to_sym
     end
   end
 
   def index
     @scoped_objects = policy_scope(model_klass.all)
-    render :json => @scoped_objects, :each_serializer => serializer_klass
+    render json: @scoped_objects, each_serializer: serializer_klass
   end
 
   def show
     @object = model_klass.find(params[:id])
     authorize @object
 
-    render :json => @object, :serializer => serializer_klass
+    render json: @object, serializer: serializer_klass
   end
 
   def create
-    begin
-      @object = model_klass.new(object_params)
-      authorize @object
-      @object.save!(object_params)
+    @object = model_klass.new(object_params)
+    authorize @object
+    @object.save!(object_params)
 
-      render :status => 201, :json => @object, :serializer => serializer_klass
-    rescue ActiveRecord::RecordInvalid => e
-      handle_errors(e)
-    end
+    render status: 201, json: @object, serializer: serializer_klass
+  rescue ActiveRecord::RecordInvalid => e
+    handle_errors(e)
   end
 
   def update
-    begin
-      @object = model_klass.find(params[:id])
-      authorize @object
-      @object.update!(object_params)
+    @object = model_klass.find(params[:id])
+    authorize @object
+    @object.update!(object_params)
 
-      render :status => 204, :nothing => true
-    rescue ActiveRecord::RecordInvalid => e
-      handle_errors(e)
-    end
+    render status: 204, nothing: true
+  rescue ActiveRecord::RecordInvalid => e
+    handle_errors(e)
   end
 
   def destroy
     @object = model_klass.find(params[:id])
     authorize @object
-    @object.destroy()
+    @object.destroy
 
-    render :status => 204, :nothing => true
+    render status: 204, nothing: true
   end
 
   private
@@ -107,7 +103,7 @@ module ApiMe
   end
 
   def render_errors(errors, status = 422)
-    render(:json => {errors: errors}, :status => status)
+    render(json: { errors: errors }, status: status)
   end
 
   def handle_errors(e)
@@ -115,8 +111,8 @@ module ApiMe
   end
 
   def user_not_authorized
-    payload = { :message => "User is not allowed to access #{params[:action]} on this resource"}
-    render :json => payload, :status => 403
+    payload = { message: "User is not allowed to access #{params[:action]} on this resource" }
+    render json: payload, status: 403
   end
 
   def params_klass_symbol
