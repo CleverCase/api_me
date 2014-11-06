@@ -1,0 +1,11 @@
+Description:
+    This generator generates an api resource that inherit from ApiMe::BaseController
+
+Example:
+    rails generate api_resource foo_bar foo:references{polymorphic} bar:belongs_to name description
+
+    This will create:
+        app/models/foo_bar.rb
+        app/serializers/foo_bar_serializer.rb
+        app/policy/foo_bar_policy.rb
+        app/controllers/api/v1/foo_bars_controller.rb
