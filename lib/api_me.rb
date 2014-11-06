@@ -9,7 +9,6 @@ module ApiMe
 
   included do
 
-    protect_from_forgery with: :null_session
     rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
     after_action :verify_authorized, except: :index
