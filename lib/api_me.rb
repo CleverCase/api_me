@@ -51,7 +51,7 @@ module ApiMe
     end
 
     def params_klass_symbol
-      model_klass.name.downcase.to_sym
+      model_klass.name.demodulize.underscore.to_sym
     end
   end
 
