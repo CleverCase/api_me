@@ -2,7 +2,7 @@ Description:
     Explain the generator
 
 Example:
-    rails generate api_policy Thing
+    rails generate api_me:policy Thing
 
     This will create:
         what/will/it/create

@@ -62,4 +62,19 @@ describe 'Users API' do
     expect(last_response.status).to eq(204)
     expect(does_user_exist).to eq(false)
   end
+
+  it 'sends a filtered list of users' do
+    users = [
+      User.create(username: 'Test'),
+      User.create(username: 'Demo'),
+      User.create(username: 'Test 2')
+    ]
+
+    get '/api/v1/users?filters%5Bsearch%5D=Test'
+
+    expect(last_response.status).to eq(200)
+    json = JSON.parse(last_response.body)
+
+    expect(json['users'].length).to eq(2)
+  end
 end

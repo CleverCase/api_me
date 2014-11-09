@@ -3,4 +3,9 @@ ActiveRecord::Schema.define do
     t.string :username
     t.timestamps
   end
+
+  create_table :posts, force: true do |t|
+    t.string :name
+    t.timestamps
+  end
 end

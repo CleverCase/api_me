@@ -1,18 +1,16 @@
 require 'active_support/concern'
 require 'pundit'
+require 'search_object'
 
 require 'api_me/version'
+require 'api_me/base_filter'
 
 module ApiMe
   extend ActiveSupport::Concern
   include ::Pundit
 
   included do
-
     rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-
-    after_action :verify_authorized, except: :index
-    after_action :verify_policy_scoped, only: :index
   end
 
   module ClassMethods
@@ -42,6 +40,10 @@ module ApiMe
       end
     end
 
+    def filter_klass
+      @filter_klass ||= filter_klass_name.safe_constantize || ::ApiMe::BaseFilter
+    end
+
     def model_klass_name
       @model_klass_name ||= name.demodulize.sub(/Controller$/, '').singularize
     end
@@ -50,14 +52,24 @@ module ApiMe
       @serializer_klass_name ||= "#{name.demodulize.sub(/Controller$/, '').singularize}Serializer"
     end
 
-    def params_klass_symbol
-      model_klass.name.demodulize.underscore.to_sym
+    def filter_klass_name
+      @filter_klass_name ||= "#{name.demodulize.sub(/Controller$/, '').singularize}Filter"
     end
   end
 
+  # Currently merge params[:ids] in filters hash
+  # to support common use case of filtering ids using
+  # the top level ids array param. Would eventually like
+  # to move to support the jsonapi.org standard closer.
   def index
+    ids_filter_hash = params[:ids] ? {ids: params[:ids]} : {}
     @scoped_objects = policy_scope(model_klass.all)
-    render json: @scoped_objects, each_serializer: serializer_klass
+    @filter_objects = filter_klass.new({
+        scope: @scoped_objects,
+        filters: (params[filter_param] || {}).merge(ids_filter_hash)
+    })
+
+    render json: @filter_objects.results, each_serializer: serializer_klass
   end
 
   def show
@@ -114,15 +126,23 @@ module ApiMe
     render json: payload, status: 403
   end
 
-  def params_klass_symbol
-    self.class.params_klass_symbol
-  end
-
   def model_klass
     self.class.model_klass
   end
 
   def serializer_klass
     self.class.serializer_klass
+  end
+
+  def filter_klass
+    self.class.filter_klass
+  end
+
+  def params_klass_symbol
+    model_klass.name.demodulize.underscore.to_sym
+  end
+
+  def filter_param
+    :filters
   end
 end
