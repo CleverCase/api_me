@@ -97,7 +97,7 @@ end
 
 #### Todo:
 - [ ]  Add the ability to specify the api controller path (I.E. app/controllers/api/v2)
-- [ ]  Add the ability to add the resource route to the routes file in the generators
+- [ ]  Add the ability to inject the resource route into the routes file in the resource generators
 
 ## License
 Copyright (c) 2014, Api Me is developed and maintained by Sam Clopton, and is released under the open MIT Licence.
