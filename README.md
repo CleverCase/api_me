@@ -76,6 +76,7 @@ The ApiMe::BaseFilter is called if no filter exists for the resource, by default
 
 ### Overrides
 Overriding the default model class, serializer class, filter class, and filter parameter can be done like so:
+
 users_controller.rb:
 ````rb
 class UsersController < ApplicationController
@@ -94,14 +95,9 @@ class UsersController < ApplicationController
 end
 ````
 
-
-#### This gem uses the following libraries:
-* Pundit
-* Active Model Serializers (0.8)
-
 #### Todo:
-- [ ]  Add the ability to specify resource filters
 - [ ]  Add the ability to specify the api controller path (I.E. app/controllers/api/v2)
+- [ ]  Add the ability to add the resource route to the routes file in the generators
 
 ## License
 Copyright (c) 2014, Api Me is developed and maintained by Sam Clopton, and is released under the open MIT Licence.
