@@ -10,7 +10,7 @@ ApiMe provides a set of generators and base classes to assist with building Rest
 ### Details
 Api controllers use the fantastic [Pundit](https://github.com/elabs/pundit) gem for authorization and parameter whitelisting, [Active Model Serializers ver 0.8](https://github.com/rails-api/active_model_serializers/tree/0-8-stable) for resource serialization, and [SearchObject](https://github.com/RStankov/SearchObject) for list filtering. The model, filter, serializer, and policy that the controller uses by default can all be overriden, along with other optional parameters.
 
-The primary goal of this gem was to keep things simple so that customization is fairly straight forward through the separating concerns and overrides. Reusing existing libraries was a primary goal during the design, hence the overall simplicity of this gem. We currently use this gem internally at [Inigo](inigo.io) and are committed to its ongoing maintenance.
+The primary goal of this gem was to keep things simple so that customization is fairly straight forward by separating concerns and providing overrides. Reusing existing libraries was a primary goal during the design, hence the overall simplicity of this gem. We currently use this gem internally at [Inigo](inigo.io) and are committed to its ongoing maintenance.
 
 ### Usage
 `rails g api_me:resource user organization:belongs_to name:string ...`
