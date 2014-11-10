@@ -66,7 +66,7 @@ module ApiMe
     @scoped_objects = policy_scope(model_klass.all)
     @filter_objects = filter_klass.new({
         scope: @scoped_objects,
-        filters: (params[filter_param] || {}).merge(ids_filter_hash)
+        filters: (filter_params || {}).merge(ids_filter_hash)
     })
 
     render json: @filter_objects.results, each_serializer: serializer_klass
@@ -142,7 +142,7 @@ module ApiMe
     model_klass.name.demodulize.underscore.to_sym
   end
 
-  def filter_param
-    :filters
+  def filter_params
+    params[:filters]
   end
 end
