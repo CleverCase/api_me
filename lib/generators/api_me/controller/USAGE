@@ -2,7 +2,7 @@ Description:
     This generator generates an api controller that inherits from ApiMe::BaseController
 
 Example:
-    rails generate api_controller foo_bar foo:references{polymorphic} bar:belongs_to name description
+    rails generate api_me:controller foo_bar foo:references{polymorphic} bar:belongs_to name description
 
     This will create:
         app/controllers/api/v1/foo_bars_controller.rb

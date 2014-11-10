@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'activesupport',            '>= 3.2.0'
   s.add_runtime_dependency 'pundit',                   '~> 0.1'
   s.add_runtime_dependency 'active_model_serializers', '~> 0.8.0'
+  s.add_runtime_dependency 'search_object',            '~> 1.0'
 
   s.add_development_dependency 'combustion',  '~> 0.5.1'
   s.add_development_dependency 'rspec-rails', '~> 3'
