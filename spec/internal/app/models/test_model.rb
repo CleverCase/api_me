@@ -7,10 +7,10 @@ class TestModel
     @created ||= false
   end
 
-  def initialize(*args)
+  def initialize(*_args)
   end
 
-  def save!(*args)
+  def save!(*_args)
     TestModel.create
   end
 

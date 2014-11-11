@@ -26,7 +26,9 @@ module ApiMe
       end
 
       def controller_class_name
-        "#{controllers_namespace.capitalize}::#{controllers_api_version.capitalize}::#{plural_name.camelize}Controller"
+        "#{controllers_namespace.capitalize}::"\
+        "#{controllers_api_version.capitalize}::"\
+        "#{plural_name.camelize}Controller"
       end
 
       def attributes_names
@@ -39,14 +41,14 @@ module ApiMe
 
       def nonpolymorphic_attribute_names
         associations.select { |attr| attr.type.in?([:belongs_to, :references]) }
-                    .reject { |attr| attr.attr_options.fetch(:polymorphic, false) }
-                    .map { |attr| "#{attr.name}_id".to_sym }
+          .reject { |attr| attr.attr_options.fetch(:polymorphic, false) }
+          .map { |attr| "#{attr.name}_id".to_sym }
       end
 
       def polymorphic_attribute_names
         associations.select { |attr| attr.type.in?([:belongs_to, :references]) }
-                    .select { |attr| attr.attr_options.fetch(:polymorphic, false) }
-                    .map { |attr| ["#{attr.name}_id".to_sym, "#{attr.name}_type".to_sym] }.flatten
+          .select { |attr| attr.attr_options.fetch(:polymorphic, false) }
+          .map { |attr| ["#{attr.name}_id".to_sym, "#{attr.name}_type".to_sym] }.flatten
       end
 
       def association_attribute_names
@@ -58,7 +60,6 @@ module ApiMe
       end
 
       def parent_class_name
-        base_controller_name = "#{controllers_namespace.capitalize}::BaseController"
         if options[:parent]
           options[:parent]
         else
