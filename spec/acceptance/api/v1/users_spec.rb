@@ -12,7 +12,7 @@ describe 'Users API' do
     expect(last_response.status).to eq(200)
     json = JSON.parse(last_response.body)
 
-    expect(json['users'].length).to eq(2)
+    expect(json['users'].length).to eq(users.count)
   end
 
   it 'sends an individual user' do
@@ -64,17 +64,19 @@ describe 'Users API' do
   end
 
   it 'sends a filtered list of users' do
-    users = [
+    all_users = [
       User.create(username: 'Test'),
       User.create(username: 'Demo'),
       User.create(username: 'Test 2')
     ]
+
+    filtered_users = [all_users[0], all_users[2]]
 
     get '/api/v1/users?filters%5Bsearch%5D=Test'
 
     expect(last_response.status).to eq(200)
     json = JSON.parse(last_response.body)
 
-    expect(json['users'].length).to eq(2)
+    expect(json['users'].length).to eq(filtered_users.count)
   end
 end

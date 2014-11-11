@@ -1,4 +1,4 @@
-class Api::V1::FailsController < ApplicationController
+class Api::V1::FailsController < ApplicationController # rubocop:disable ClassAndModuleChildren
   include ApiMe
 
   before_action :fail

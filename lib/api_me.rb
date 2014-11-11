@@ -14,11 +14,11 @@ module ApiMe
   end
 
   module ClassMethods
-    def model(klass)
+    def model(klass) # rubocop:disable TrivialAccessors
       @model_klass = klass
     end
 
-    def serializer(klass)
+    def serializer(klass) # rubocop:disable TrivialAccessors
       @serializer_klass = klass
     end
 
@@ -62,12 +62,12 @@ module ApiMe
   # the top level ids array param. Would eventually like
   # to move to support the jsonapi.org standard closer.
   def index
-    ids_filter_hash = params[:ids] ? {ids: params[:ids]} : {}
+    ids_filter_hash = params[:ids] ? { ids: params[:ids] } : {}
     @scoped_objects = policy_scope(model_klass.all)
-    @filter_objects = filter_klass.new({
+    @filter_objects = filter_klass.new(
         scope: @scoped_objects,
         filters: (filter_params || {}).merge(ids_filter_hash)
-    })
+    )
 
     render json: @filter_objects.results, each_serializer: serializer_klass
   end
