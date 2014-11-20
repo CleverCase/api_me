@@ -12,8 +12,17 @@ Api controllers use the fantastic [Pundit](https://github.com/elabs/pundit) gem 
 
 The primary goal of this gem was to keep things simple so that customization is fairly straight forward by separating concerns and providing overrides. Reusing existing libraries was a primary goal during the design, hence the overall simplicity of this gem. We currently use this gem internally at [Inigo](inigo.io) and are committed to its ongoing maintenance.
 
+### Installation
+Add the gem to your Gemfile: `gem api_me`.
+
+Run `bundle install` to install it.
+
+Run `rails generate api_me:install` to install api_me.
+
+You are now setup!
+
 ### Usage
-`rails g api_me:resource user organization:belongs_to name:string ...`
+`rails generate api_me:resource user organization:belongs_to name:string ...`
 
 this generates the following:
 
@@ -22,7 +31,7 @@ this generates the following:
 * app/serializers/user_serializer.rb
 
 and also essentially calls:
-* `rails g model user organization:belongs_to name:string ...`
+* `rails generate model user organization:belongs_to name:string ...`
 Which generates the model et al as specified.
 
 users_controller.rb:
