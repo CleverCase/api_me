@@ -7,7 +7,7 @@ require 'api_me/version'
 Gem::Specification.new do |s|
   s.name        = 'api_me'
   s.version     = ApiMe::VERSION
-  s.authors     = ['Sam Clopton']
+  s.authors     = ['Sam Clopton', 'Joe Weakley']
   s.email       = ['samsinite@gmail.com']
   s.homepage    = 'https://github.com/inigo/api_me'
   s.summary     = 'Api Me'
