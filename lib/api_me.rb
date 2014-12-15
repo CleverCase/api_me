@@ -118,6 +118,7 @@ module ApiMe
   end
 
   def handle_errors(e)
+    Rails.logger.debug "ERROR: #{e}"
     render_errors(e.record.errors.messages)
   end
 
