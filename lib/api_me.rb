@@ -63,7 +63,7 @@ module ApiMe
   # to move to support the jsonapi.org standard closer.
   def index
     ids_filter_hash = params[:ids] ? { ids: params[:ids] } : {}
-    @scoped_objects = policy_scope(model_klass.all)
+    @scoped_objects = policy_scope(resource_scope)
     @filter_objects = filter_klass.new(
         scope: @scoped_objects,
         filters: (filter_params || {}).merge(ids_filter_hash)
@@ -137,6 +137,10 @@ module ApiMe
 
   def filter_klass
     self.class.filter_klass
+  end
+
+  def resource_scope
+    model_klass.all
   end
 
   def params_klass_symbol
