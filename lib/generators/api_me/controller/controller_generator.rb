@@ -13,6 +13,7 @@ module ApiMe
                                             controllers_namespace,
                                             controllers_api_version,
                                             "#{plural_name}_controller.rb")
+        insert_after_version(plural_name)
       end
 
       def controllers_namespace
@@ -67,7 +68,32 @@ module ApiMe
         end
       end
 
-      hook_for :test_framework
+      private
+
+      def insert_after_version(resource_name)
+        maybe_create_api_v1_namespace
+
+        in_root do
+          insert_into_file(
+            'config/routes.rb',
+            "      resources :#{resource_name}\n",
+            after: "namespace :#{controllers_api_version} do\n"
+          )
+        end
+      end
+
+      def maybe_create_api_v1_namespace
+        in_root do
+          unless File.readlines('config/routes.rb').grep("namespace #{controllers_namespace} do")
+            route <<-ROUTE
+namespace :#{controllers_namespace} do
+    namespace :#{controllers_api_version} do
+    end
+  end
+ROUTE
+          end
+        end
+      end
     end
   end
 end
