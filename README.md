@@ -108,5 +108,8 @@ end
 - [ ]  Add the ability to specify the api controller path (I.E. app/controllers/api/v2)
 - [ ]  Add the ability to inject the resource route into the routes file in the resource generators
 
+## Code Of Conduct
+Wildland Open Source [Code of conduct](https://github.com/wildland/code-of-conduct)
+
 ## License
 Copyright (c) 2014, Api Me is developed and maintained by Sam Clopton, and is released under the open MIT Licence.
