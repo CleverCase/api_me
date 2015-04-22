@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = ApiMe::VERSION
   s.authors     = ['Sam Clopton', 'Joe Weakley']
   s.email       = ['samsinite@gmail.com']
-  s.homepage    = 'https://github.com/inigo/api_me'
+  s.homepage    = 'https://github.com/wildland/api_me'
   s.summary     = 'Api Me'
   s.description = "This friendly library gives you helpers and generators to assist building RESTful API's in your Rails app."
   s.license     = 'MIT'
