@@ -109,7 +109,7 @@ end
 - [ ]  Add the ability to inject the resource route into the routes file in the resource generators
 
 ## Code Of Conduct
-Wildland Open Source [Code of conduct](https://github.com/wildland/code-of-conduct)
+Wildland Open Source [Code Of Conduct](https://github.com/wildland/code-of-conduct)
 
 ## License
 Copyright (c) 2014, Api Me is developed and maintained by Sam Clopton, and is released under the open MIT Licence.
