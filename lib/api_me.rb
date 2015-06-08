@@ -11,6 +11,7 @@ module ApiMe
 
   included do
     rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+    rescue_from ActiveRecord::RecordNotFound, with: :resource_not_found
   end
 
   module ClassMethods
@@ -73,7 +74,7 @@ module ApiMe
   end
 
   def show
-    @object = model_klass.find(params[:id])
+    @object = find_resource
     authorize @object
 
     render json: @object, serializer: serializer_klass
@@ -90,7 +91,7 @@ module ApiMe
   end
 
   def update
-    @object = model_klass.find(params[:id])
+    @object = find_resource
     authorize @object
     @object.update!(object_params)
 
@@ -100,7 +101,7 @@ module ApiMe
   end
 
   def destroy
-    @object = model_klass.find(params[:id])
+    @object = find_resource
     authorize @object
     @object.destroy
 
@@ -127,6 +128,10 @@ module ApiMe
     render json: payload, status: 403
   end
 
+  def resource_not_found
+    render status: 404, nothing: true
+  end
+
   def model_klass
     self.class.model_klass
   end
@@ -149,5 +154,9 @@ module ApiMe
 
   def filter_params
     params[:filters]
+  end
+
+  def find_resource
+    model_klass.find_by_id!(params[:id])
   end
 end

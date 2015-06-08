@@ -15,6 +15,14 @@ describe 'Users API' do
     expect(json['users'].length).to eq(users.count)
   end
 
+  it 'returns a 404 for a user that does not exist' do
+    invalid_user_id = User.maximum(:id).to_i + 1
+
+    get '/api/v1/users/' + invalid_user_id.to_s + '/'
+
+    expect(last_response.status).to eq(404)
+  end
+
   it 'sends an individual user' do
     user = User.create(username: 'Test')
 
