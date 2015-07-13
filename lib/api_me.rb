@@ -108,7 +108,7 @@ module ApiMe
     render status: 204, nothing: true
   end
 
-  private
+  protected
 
   def object_params
     params.require(params_klass_symbol).permit(*policy(@object || model_klass).permitted_attributes)
