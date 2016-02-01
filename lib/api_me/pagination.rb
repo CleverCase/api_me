@@ -12,24 +12,18 @@ module ApiMe
     end
 
     def results
-      if is_paging
-        page.per.scope
-      else
-        scope
-      end
+      paging? ? page.per.scope : scope
     end
 
     def page_meta
-      unless is_paging
-        return {}
-      end
+      return Hash.new unless paging?
 
       {
-        size: self.page_size.nil? ? default_page_size : self.page_size,
-        offset: self.page_offset,
-        record_count: self.scope.size,
-        total_records: self.scope.total_count,
-        total_pages: self.scope.total_pages
+        size: page_size.nil? ? default_page_size : page_size,
+        offset: page_offset,
+        record_count: scope.size,
+        total_records: scope.total_count,
+        total_pages: scope.total_pages
       }
     end
 
@@ -54,7 +48,7 @@ module ApiMe
       Kaminari.config.default_per_page
     end
 
-    def is_paging
+    def paging?
       page_size || page_offset
     end
   end
