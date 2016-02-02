@@ -1,4 +1,4 @@
-[![Gem Version](https://badge.fury.io/rb/api_me.png)](http://badge.fury.io/rb/api_me) [![Build Status](https://travis-ci.org/inigo-llc/api_me.png?branch=master)](https://travis-ci.org/inigo-llc/api_me) [![Code Climate](https://codeclimate.com/github/inigo-llc/api_me/badges/gpa.svg)](https://codeclimate.com/github/inigo-llc/api_me) [![Dependency Status](https://gemnasium.com/inigo-llc/api_me.svg)](https://gemnasium.com/inigo-llc/api_me)
+[![Gem Version](https://badge.fury.io/rb/api_me.png)](http://badge.fury.io/rb/api_me) [![Build Status](https://travis-ci.org/wildland/api_me.svg?branch=master)](https://travis-ci.org/inigo-llc/api_me) [![Code Climate](https://codeclimate.com/github/inigo-llc/api_me/badges/gpa.svg)](https://codeclimate.com/github/inigo-llc/api_me) [![Dependency Status](https://gemnasium.com/inigo-llc/api_me.svg)](https://gemnasium.com/inigo-llc/api_me)
 ApiMe
 =========
 
