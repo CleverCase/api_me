@@ -1,9 +1,11 @@
 require 'active_support/concern'
 require 'pundit'
 require 'search_object'
+require 'kaminari'
 
 require 'api_me/version'
 require 'api_me/base_filter'
+require 'api_me/pagination'
 
 module ApiMe
   extend ActiveSupport::Concern
@@ -65,12 +67,13 @@ module ApiMe
   def index
     ids_filter_hash = params[:ids] ? { ids: params[:ids] } : {}
     @scoped_objects = policy_scope(resource_scope)
-    @filter_objects = filter_klass.new(
+    @filter_object = filter_klass.new(
         scope: @scoped_objects,
         filters: (filter_params || {}).merge(ids_filter_hash)
     )
+    @pagination_object = ApiMe::Pagination.new(scope: @filter_object.results, page_params: params[:page])
 
-    render json: @filter_objects.results, each_serializer: serializer_klass
+    render json: @pagination_object.results, each_serializer: serializer_klass, meta: { page: @pagination_object.page_meta }
   end
 
   def show
