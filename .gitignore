@@ -1,3 +1,4 @@
 Gemfile.lock
 spec/internal/db/*sqlite
 pkg/
+*.swp
