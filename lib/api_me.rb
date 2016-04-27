@@ -107,8 +107,9 @@ module ApiMe
     @object = find_resource
     authorize @object
     @object.destroy
-
     render status: 204, nothing: true
+  rescue ActiveRecord::RecordInvalid => e
+    handle_errors(e)
   end
 
   protected
