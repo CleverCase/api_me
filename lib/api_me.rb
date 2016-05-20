@@ -65,12 +65,8 @@ module ApiMe
   # the top level ids array param. Would eventually like
   # to move to support the jsonapi.org standard closer.
   def index
-    ids_filter_hash = params[:ids] ? { ids: params[:ids] } : {}
-    @scoped_objects = policy_scope(resource_scope)
-    @filter_object = filter_klass.new(
-        scope: @scoped_objects,
-        filters: (filter_params || {}).merge(ids_filter_hash)
-    )
+    @policy_scope = policy_scope(resource_scope)
+    @filter_scope = filter_scope(@policy_scope)
     @pagination_object = ApiMe::Pagination.new(scope: @filter_object.results, page_params: params[:page])
 
     render json: @pagination_object.results, each_serializer: serializer_klass, meta: { page: @pagination_object.page_meta }
@@ -151,9 +147,21 @@ module ApiMe
   def resource_scope
     model_klass.all
   end
+  
+  def filter_scope(scope)
+    filter_klass.new(
+        scope: scope,
+        filters: filters_hash
+    ).results
+  end
 
   def params_klass_symbol
     model_klass.name.demodulize.underscore.to_sym
+  end
+  
+  def filters_hash
+    ids_filter_hash = params[:ids] ? { ids: params[:ids] } : {}
+    (filter_params || {}).merge(ids_filter_hash)
   end
 
   def filter_params
