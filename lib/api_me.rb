@@ -67,7 +67,7 @@ module ApiMe
   def index
     @policy_scope = policy_scope(resource_scope)
     @filter_scope = filter_scope(@policy_scope)
-    @pagination_object = ApiMe::Pagination.new(scope: @filter_object.results, page_params: params[:page])
+    @pagination_object = ApiMe::Pagination.new(scope: @filter_scope, page_params: params[:page])
 
     render json: @pagination_object.results, each_serializer: serializer_klass, meta: { page: @pagination_object.page_meta }
   end
