@@ -147,7 +147,7 @@ module ApiMe
   def resource_scope
     model_klass.all
   end
-  
+
   def filter_scope(scope)
     filter_klass.new(
         scope: scope,
@@ -158,7 +158,7 @@ module ApiMe
   def params_klass_symbol
     model_klass.name.demodulize.underscore.to_sym
   end
-  
+
   def filters_hash
     ids_filter_hash = params[:ids] ? { ids: params[:ids] } : {}
     (filter_params || {}).merge(ids_filter_hash)
