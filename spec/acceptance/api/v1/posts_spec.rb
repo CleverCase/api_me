@@ -137,4 +137,30 @@ describe 'Posts API' do
 
     expect(json['posts'].length).to eq(filtered_posts.count)
   end
+
+  it 'sends posts reverse sorted by id' do
+    i = 0
+    20.times do
+      i = i += 1
+      Post.create(name: 'Post' + i.to_s)
+    end
+
+    get '/api/v1/posts?sort%5Bcriteria%5D=id&sort%5Breverse%5D=true'
+    json = JSON.parse(last_response.body)
+    expect(json['posts'].last['name']).to eq('Post1')
+  end
+
+  it 'sends posts reverse sorted by id and paginated with a size of 12 and an offset of 1' do
+    i = 0
+    20.times do
+      i = i += 1
+      Post.create(name: 'Post' + i.to_s)
+    end
+
+    get '/api/v1/posts?page%5Boffset%5D=1&page%5Bsize%5D=12&sort%5Bcriteria%5D=id&sort%5Breverse%5D=true'
+    json = JSON.parse(last_response.body)
+    expect(json['posts'].first['name']).to eq('Post20')
+    expect(json['posts'].length).to eq(12)
+  end
+
 end
