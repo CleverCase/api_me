@@ -5,6 +5,7 @@ require 'kaminari'
 
 require 'api_me/version'
 require 'api_me/base_filter'
+require 'api_me/sorting'
 require 'api_me/pagination'
 
 module ApiMe
@@ -67,7 +68,8 @@ module ApiMe
   def index
     @policy_scope = policy_scope(resource_scope)
     @filter_scope = filter_scope(@policy_scope)
-    @pagination_object = ApiMe::Pagination.new(scope: @filter_scope, page_params: params[:page])
+    @sorted_scope = ApiMe::Sorting.new(scope: @filter_scope, sort_params: params[:sort]).results
+    @pagination_object = ApiMe::Pagination.new(scope: @sorted_scope, page_params: params[:page])
 
     render json: @pagination_object.results, each_serializer: serializer_klass, meta: { page: @pagination_object.page_meta }
   end
@@ -147,7 +149,7 @@ module ApiMe
   def resource_scope
     model_klass.all
   end
-  
+
   def filter_scope(scope)
     filter_klass.new(
         scope: scope,
@@ -158,7 +160,7 @@ module ApiMe
   def params_klass_symbol
     model_klass.name.demodulize.underscore.to_sym
   end
-  
+
   def filters_hash
     ids_filter_hash = params[:ids] ? { ids: params[:ids] } : {}
     (filter_params || {}).merge(ids_filter_hash)

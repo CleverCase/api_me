@@ -17,7 +17,6 @@ module ApiMe
 
     def page_meta
       return Hash.new unless paging?
-
       {
         size: page_size.nil? ? default_page_size : page_size,
         offset: page_offset,
@@ -30,7 +29,7 @@ module ApiMe
     protected
 
     def page
-      self.scope = scope.page(self.page_offset ? page_offset : 1)
+      self.scope = Kaminari.paginate_array(scope).page(self.page_offset ? page_offset : 1)
       self
     end
 
@@ -38,7 +37,6 @@ module ApiMe
       if page_size
         self.scope = scope.per(page_size)
       end
-
       self
     end
 
@@ -51,5 +49,6 @@ module ApiMe
     def paging?
       page_size || page_offset
     end
+
   end
 end
