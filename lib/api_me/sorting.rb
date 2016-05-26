@@ -18,7 +18,7 @@ module ApiMe
     def sort_meta
       return Hash.new unless sorting?
       {
-        criteria: sort_criteria.nil? || sort_criteria === "" ? default_sort_criteria : sort_criteria,
+        criteria: sort_criteria.is_blank? || sort_criteria === "" ? default_sort_criteria : sort_criteria,
         reverse: sort_reverse,
         record_count: scope.size,
         total_records: scope.total_count,
