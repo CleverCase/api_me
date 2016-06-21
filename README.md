@@ -83,6 +83,23 @@ end
 ````
 The ApiMe::BaseFilter is called if no filter exists for the resource, by default the base filter provides filtering by ids for convenience. I.E a GET to `/api/v1/users?ids%5B%5D=1&ids%5B%5D=3` would return users filtered by ids of 1 and 3. All other filters are expected by default to be located at `params[:filters]` and not at the base level.
 
+### Sorting
+
+To enable sorting just pass `sort` in your request with `sortCiteria` and `sortReverse`.
+
+Ember Example
+````js
+return this.store.query('some-model', {
+  filters: {
+    cool_models_only: true
+  },
+  sort:  {
+    sortCiteria: 'createdAt', // Property to sort on.
+    sortReverse: false, // True reverses the sort.
+  }
+});
+````
+
 ### Overrides
 Overriding the default model class, serializer class, filter class, and filter parameter can be done like so:
 
