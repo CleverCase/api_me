@@ -94,8 +94,8 @@ return this.store.query('some-model', {
     cool_models_only: true
   },
   sort:  {
-    sortCiteria: 'createdAt', // Property to sort on.
-    sortReverse: false, // True reverses the sort.
+    criteria: 'createdAt', // Property to sort on.
+    reverse: false, // True reverses the sort.
   }
 });
 ````
