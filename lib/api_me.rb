@@ -68,7 +68,7 @@ module ApiMe
   def index
     @policy_scope = policy_scope(resource_scope)
     @filter_scope = filter_scope(@policy_scope)
-    @sorted_scope = ApiMe::Sorting.new(scope: @filter_scope, sort_params: params[:sort]).results
+    @sorted_scope = sort_scope(@filter_scope, params[:sort])
     @pagination_object = ApiMe::Pagination.new(scope: @sorted_scope, page_params: params[:page])
 
     render json: @pagination_object.results, each_serializer: serializer_klass, meta: { page: @pagination_object.page_meta }
@@ -155,6 +155,10 @@ module ApiMe
         scope: scope,
         filters: filters_hash
     ).results
+  end
+
+  def sort_scope(scope, params)
+    ApiMe::Sorting.new(scope: scope, sort_params: params).results
   end
 
   def params_klass_symbol
