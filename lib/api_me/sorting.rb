@@ -4,7 +4,6 @@ module ApiMe
 
     def initialize(scope:, sort_params:)
       self.scope = scope
-
       if sort_params
         self.sort_criteria = sort_params[:criteria]
         self.sort_reverse = sort_params[:reverse]
