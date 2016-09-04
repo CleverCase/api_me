@@ -1,4 +1,6 @@
-class TestModel
+require 'active_model_serializers/model'
+
+class TestModel < ActiveModelSerializers::Model
   def self.create
     @created = true
   end

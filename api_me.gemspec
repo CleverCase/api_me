@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'activerecord',             '>= 3.2.0'
   s.add_runtime_dependency 'activesupport',            '>= 3.2.0'
   s.add_runtime_dependency 'pundit',                   '~> 1.0'
-  s.add_runtime_dependency 'active_model_serializers', '~> 0.8.0'
+  s.add_runtime_dependency 'active_model_serializers', '~> 0.10.0'
   s.add_runtime_dependency 'search_object',            '~> 1.0'
   s.add_runtime_dependency 'kaminari',                 '~> 0.16.3'
 
