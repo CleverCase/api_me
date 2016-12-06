@@ -29,7 +29,7 @@ module ApiMe
     protected
 
     def page
-      self.scope = Kaminari.paginate_array(scope).page(self.page_offset ? page_offset : 1)
+      self.scope = scope.page(self.page_offset ? page_offset : 1)
       self
     end
 

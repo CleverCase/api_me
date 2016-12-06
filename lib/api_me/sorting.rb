@@ -5,7 +5,7 @@ module ApiMe
     def initialize(scope:, sort_params:)
       self.scope = scope
       if sort_params
-        self.sort_criteria = sort_params[:criteria]
+        self.sort_criteria = sort_params[:criteria] || default_sort_criteria
         self.sort_reverse = sort_params[:reverse]
       end
     end
@@ -26,18 +26,11 @@ module ApiMe
 
     protected
 
-    def sort
-      unless sort_criteria === ""
-        sort_p = sort_criteria
-        if sort_reverse === "true"
-          self.scope = scope.sort_by {|scope| scope[sort_p]}.reverse!
-        else
-          self.scope = scope.sort_by {|scope| scope[sort_p]}
-        end
-        self.scope
+    def sort(criteria = default_sort_criteria)
+      if sort_reverse === "true"
+        self.scope = scope.order(criteria => :desc)
       else
-        default_sort_criteria
-        sort.scope
+        self.scope = scope.order(criteria => :asc)
       end
       self
     end
