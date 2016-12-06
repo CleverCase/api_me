@@ -1,17 +1,22 @@
 module ApiMe
   class Sorting
-    attr_accessor :sort_criteria, :sort_reverse, :scope
+    attr_accessor :sort_criteria, :sort_reverse, :sort_association, :scope
 
     def initialize(scope:, sort_params:)
       self.scope = scope
       if sort_params
-        self.sort_criteria = sort_params[:criteria]
+        self.sort_association = sort_params[:assoCriteria]
+        self.sort_criteria = sort_params[:criteria] || default_sort_criteria
         self.sort_reverse = sort_params[:reverse]
+
+        unless self.sort_association == ""
+          relation_sorting(self.sort_criteria)
+        end
       end
     end
 
     def results
-      sorting? ? sort.scope : scope
+      sorting? ? sort(sort_criteria) : scope
     end
 
     def sort_meta
@@ -26,20 +31,22 @@ module ApiMe
 
     protected
 
-    def sort
-      unless sort_criteria === ""
-        sort_p = sort_criteria
+    def sort(criteria = default_sort_criteria)
+      unless sort_association == ""
+        criteria_class = criteria.camelize.constantize
+
         if sort_reverse === "true"
-          self.scope = scope.sort_by {|scope| scope[sort_p]}.reverse!
+          scope.joins(criteria.to_sym).merge(criteria_class.order(sort_association => :desc))
         else
-          self.scope = scope.sort_by {|scope| scope[sort_p]}
+          scope.joins(criteria.to_sym).merge(criteria_class.order(sort_association => :asc))
         end
-        self.scope
       else
-        default_sort_criteria
-        sort.scope
+        if sort_reverse === "true"
+          self.scope = scope.order(criteria => :desc)
+        else
+          self.scope = scope.order(criteria => :asc)
+        end
       end
-      self
     end
 
     private
@@ -52,5 +59,9 @@ module ApiMe
       sort_criteria || sort_reverse
     end
 
+    def relation_sorting(str)
+      str.slice!(/_id/)
+      return str
+    end
   end
 end
