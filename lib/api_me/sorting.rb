@@ -36,15 +36,15 @@ module ApiMe
         criteria_class = criteria.camelize.constantize
 
         if sort_reverse === "true"
-          scope.joins(criteria.to_sym).merge(criteria_class.order(sort_association => :asc))
-        else
           scope.joins(criteria.to_sym).merge(criteria_class.order(sort_association => :desc))
+        else
+          scope.joins(criteria.to_sym).merge(criteria_class.order(sort_association => :asc))
         end
       else
         if sort_reverse === "true"
-          self.scope = scope.order(criteria => :asc)
-        else
           self.scope = scope.order(criteria => :desc)
+        else
+          self.scope = scope.order(criteria => :asc)
         end
       end
     end
