@@ -85,7 +85,53 @@ The ApiMe::BaseFilter is called if no filter exists for the resource, by default
 
 ### Sorting
 
-To enable sorting just pass `sort` in your request with `sortCiteria` and `sortReverse`.
+To enable sorting just create an Ember route mixin to handle setting parameter details.
+
+Example
+````js
+  export default Ember.Mixin.create({
+    queryParams: {
+      sortCiteria: { refreshModel: true },
+      sortReverse: { refreshModel: true },
+    },
+
+    sortingParams(params) {
+      // NOTE: Is null unless the sort query is a model association
+      let associationCriteria = this.defaultAssociationSorting(params.sortCriteria);
+
+      if (params.sortReverse === true || params.sortReverse === false) {
+        // NOTE: Convert T/F to string in order to send across server
+        params.sortReverse = params.sortReverse.toString();
+      }
+
+      return {
+        assoCriteria: associationCriteria,
+        criteria: params.sortCriteria ? params.sortCriteria : "id",
+        reverse: params.sortReverse ? params.sortReverse : null,
+      };
+    },
+
+    resetController(controller, isExiting) {
+      if (isExiting) {
+        controller.set('sortCriteria', "id");
+        controller.set('sortReverse', false);
+      }
+
+      return this._super(...arguments);
+    },
+
+    defaultAssociationSorting(criteria) {
+      let criteriaArr = criteria.split('_');
+      if (criteriaArr[1] === 'id') {
+        return "label"; // NOTE: Attribute of the associated model to be sorted by.
+      } else {
+        return null;
+      }
+    },
+  });
+````
+
+Then apply the mixin to any route and simply pass `sort` in your request with `sortCiteria` and `sortReverse`.
 
 Ember Example
 ````js
