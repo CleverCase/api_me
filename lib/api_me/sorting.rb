@@ -2,7 +2,7 @@ module ApiMe
   class Sorting
     attr_accessor :sort_criteria, :sort_reverse, :sort_association, :scope
 
-    def initialize(model_klass, scope:, sort_params:)
+    def initialize(scope:, sort_params:)
       self.scope = scope
       if sort_params
         self.sort_association = sort_params[:assoCriteria]

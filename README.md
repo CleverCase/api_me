@@ -12,27 +12,6 @@ Api controllers use the fantastic [Pundit](https://github.com/elabs/pundit) gem 
 
 The primary goal of this gem was to keep things simple so that customization is fairly straight forward by separating concerns and providing overrides. Reusing existing libraries was a primary goal during the design, hence the overall simplicity of this gem. We currently use this gem internally at [Inigo](inigo.io) and are committed to its ongoing maintenance.
 
-### Upgrade from 0.7.X to 0.8.X
-- Upgrade to the latest version of 0.7.X. Run the app/tests and check/fix all deprecations
-- Upgrade to the latest version of 0.8.X, update active_model_serializers to 0.10.X.
-- Add the following initializer:
-  `config/initializers/active_model_serializer.rb`
-  ```rb
-  ActiveModelSerializers.config.adapter = :json
-  ```
-- Remove all `embed ...` methods from the serializers
-- Update all belongs-to relationships to have FKs, serialize the FK id in all active model serializers instead of embeding the relationship (I.E. `has_one :foo` becomes `attributes :foo_id`)
-- Update all has-many relationships to serialize the ids instead of embeding the relationship. (I.E. `has_many :foos` becomes `attributes :foo_ids`)
-- Remove all has-one relationships and manually build a method to serialize the id. Ex:
-  ```rb
-  attributes :foo_id
-
-  def foo_id
-    object.foo ? object.foo.id : nil
-  end
-  ```
-- Embeded has-one and belongs-to relationships look the same on the serializer, so look at the model to identify the differences.
-
 ### Installation
 Add the gem to your Gemfile: `gem api_me`.
 
