@@ -11,7 +11,7 @@ module ApiMe
     end
 
     def results
-      sorting? ? sort.scope : scope
+      sorting? ? sort(sort_criteria).scope : scope
     end
 
     def sort_meta
