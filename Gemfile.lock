@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    api_me (0.8.1)
+    api_me (0.8.2)
       active_model_serializers (~> 0.10.0)
       activerecord (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -132,3 +132,6 @@ DEPENDENCIES
   rspec-rails (~> 3)
   rubocop (>= 0.27.0)
   sqlite3 (~> 1.3.7)
+
+BUNDLED WITH
+   1.13.6
