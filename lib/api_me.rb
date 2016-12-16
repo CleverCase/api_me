@@ -49,15 +49,15 @@ module ApiMe
     end
 
     def model_klass_name
-      @model_klass_name ||= name.demodulize.sub(/Controller$/, '').singularize
+      @model_klass_name ||= name.sub(/Controller$/, '').singularize
     end
 
     def serializer_klass_name
-      @serializer_klass_name ||= "#{name.demodulize.sub(/Controller$/, '').singularize}Serializer"
+      @serializer_klass_name ||= "#{name.sub(/Controller$/, '').singularize}Serializer"
     end
 
     def filter_klass_name
-      @filter_klass_name ||= "#{name.demodulize.sub(/Controller$/, '').singularize}Filter"
+      @filter_klass_name ||= "#{name.sub(/Controller$/, '').singularize}Filter"
     end
   end
 
@@ -170,7 +170,7 @@ module ApiMe
   end
 
   def params_klass_symbol
-    model_klass.name.demodulize.underscore.to_sym
+    model_klass.name.underscore
   end
 
   def filters_hash
