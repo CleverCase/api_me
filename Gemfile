@@ -10,6 +10,5 @@ group :test do
   gem 'combustion', '~> 0.5.2'
   gem 'rack-test'
   gem 'pundit'
-  # gem 'active_model_serializers', '~> 0.8.0'
-  gem 'active_model_serializers', '~> 0.10.0'
+  gem 'active_model_serializers', '~> 0.8.0'
 end
