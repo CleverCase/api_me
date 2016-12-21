@@ -1,6 +1,6 @@
-require 'active_model_serializers/model'
+require 'api_me/model'
 
-class TestModel < ActiveModelSerializers::Model
+class TestModel < ApiMe::Model
   def self.create
     @created = true
   end
