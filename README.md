@@ -85,7 +85,7 @@ The ApiMe::BaseFilter is called if no filter exists for the resource, by default
 
 ### Sorting
 
-To enable sorting just pass `sort` in your request with `sortCiteria` and `sortReverse`.
+To enable sorting simply pass `sort` in your API request with `sortCiteria` and `sortReverse` as hash parameters. Associated models will need a third parameter passed in `associationCriteria`, meaning the attribute of the associated model to sort by.
 
 Ember Example
 ````js

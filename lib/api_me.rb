@@ -71,14 +71,14 @@ module ApiMe
     @sorted_scope = sort_scope(@filter_scope, params[:sort])
     @pagination_object = ApiMe::Pagination.new(scope: @sorted_scope, page_params: params[:page])
 
-    render json: @pagination_object.results, each_serializer: serializer_klass, meta: { page: @pagination_object.page_meta }
+    render json: @pagination_object.results, root: collection_root_key, each_serializer: serializer_klass, meta: { page: @pagination_object.page_meta }
   end
 
   def show
     @object = find_resource
     authorize @object
 
-    render json: @object, serializer: serializer_klass
+    render json: @object, root: singular_root_key, serializer: serializer_klass
   end
 
   def create
@@ -86,7 +86,7 @@ module ApiMe
     authorize @object
     @object.save!(object_params)
 
-    render status: 201, json: @object, serializer: serializer_klass
+    render status: 201, json: @object, root: singular_root_key, serializer: serializer_klass
   rescue ActiveRecord::RecordInvalid => e
     handle_errors(e)
   end
@@ -111,6 +111,14 @@ module ApiMe
   end
 
   protected
+
+  def singular_root_key
+    model_klass.name.singularize.underscore
+  end
+
+  def collection_root_key
+    model_klass.name.pluralize.underscore
+  end
 
   def object_params
     params.require(params_klass_symbol).permit(*policy(@object || model_klass).permitted_attributes)

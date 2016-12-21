@@ -1,4 +1,6 @@
-class TestModel
+require 'api_me/model'
+
+class TestModel < ApiMe::Model
   def self.create
     @created = true
   end

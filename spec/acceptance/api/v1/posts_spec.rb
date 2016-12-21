@@ -58,7 +58,6 @@ describe 'Posts API' do
     get '/api/v1/posts?page%5Boffset%5D=3'
     json = JSON.parse(last_response.body)
     expect(json['posts'].length).to eq(0)
-
   end
 
   it 'is page size of 10 working for default offset of 1' do
@@ -143,7 +142,7 @@ describe 'Posts API' do
       Post.create(name: 'Post' + i.to_s)
     end
 
-    get '/api/v1/posts?sort%5Bcriteria%5D=id&sort%5Breverse%5D=true'
+    get '/api/v1/posts?sort%5Bcriteria%5D=id&sort%5Breverse%5D=true&sort%5BassoCriteria%5D='
     json = JSON.parse(last_response.body)
     expect(json['posts'].last['name']).to eq('Post0')
   end
@@ -153,10 +152,9 @@ describe 'Posts API' do
       Post.create(name: 'Post' + i.to_s)
     end
 
-    get '/api/v1/posts?page%5Boffset%5D=1&page%5Bsize%5D=10&sort%5Bcriteria%5D=id&sort%5Breverse%5D=true'
+    get '/api/v1/posts?page%5Boffset%5D=1&page%5Bsize%5D=10&sort%5Bcriteria%5D=id&sort%5Breverse%5D=true&sort%5BassoCriteria%5D='
     json = JSON.parse(last_response.body)
     expect(json['posts'].first['name']).to eq('Post19')
     expect(json['posts'].length).to eq(10)
   end
-
 end
