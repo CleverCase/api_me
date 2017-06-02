@@ -68,7 +68,7 @@ module ApiMe
   def index
     @policy_scope = policy_scope(resource_scope)
     @filter_scope = filter_scope(@policy_scope)
-    @sorted_scope = sort_scope(@filter_scope, sort_params)
+    @sorted_scope = sort_scope(@filter_scope)
     @pagination_object = paginate_scope(@sorted_scope, page_params)
 
     render json: @pagination_object.results, root: collection_root_key, each_serializer: serializer_klass, meta: { page: @pagination_object.page_meta }
@@ -162,6 +162,10 @@ module ApiMe
     self.class.filter_klass
   end
 
+  def sort_klass
+    ApiMe::Sorting
+  end
+
   def resource_scope
     model_klass.all
   end
@@ -173,8 +177,11 @@ module ApiMe
     ).results
   end
 
-  def sort_scope(scope, params)
-    ApiMe::Sorting.new(scope: scope, sort_params: params).results
+  def sort_scope(scope)
+    sort_klass.new(
+        scope: scope,
+        sort_params: sort_hash
+    ).results
   end
 
   def paginate_scope(scope, params)
@@ -192,6 +199,14 @@ module ApiMe
 
   def filter_params
     params[:filters]
+  end
+
+  def sort_hash
+    sort_params
+  end
+
+  def sort_params
+    params[:sort]
   end
 
   def find_resource
