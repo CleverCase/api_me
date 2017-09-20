@@ -68,8 +68,8 @@ module ApiMe
   def index
     @policy_scope = policy_scope(resource_scope)
     @filter_scope = filter_scope(@policy_scope)
-    @sorted_scope = sort_scope(@filter_scope, params[:sort])
-    @pagination_object = paginate_scope(@sorted_scope, params[:page])
+    @sorted_scope = sort_scope(@filter_scope, sort_params)
+    @pagination_object = paginate_scope(@sorted_scope, page_params)
 
     render json: @pagination_object.results, root: collection_root_key, each_serializer: serializer_klass, meta: { page: @pagination_object.page_meta }
   end
@@ -122,6 +122,14 @@ module ApiMe
 
   def object_params
     params.require(params_klass_symbol).permit(*policy(@object || model_klass).permitted_attributes)
+  end
+
+  def page_params
+    params[:page]
+  end
+
+  def sort_params
+    params[:sort]
   end
 
   def render_errors(errors, status = 422)
