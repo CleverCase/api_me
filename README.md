@@ -121,6 +121,45 @@ return this.store.query('some-model', {
 });
 ````
 
+### Pagination
+
+To enable pagination just pass `page` in your request with `size` and `offset`.
+
+Ember Example
+````js
+return this.store.query('some-model', {
+  filters: {
+    cool_models_only: true
+  },
+  sort:  {
+    criteria: 'createdAt', // Property to sort on.
+    reverse: false, // True reverses the sort.
+  }
+  page:  {
+    size: 50, // Size of a page. Number of results per page.
+    offset: false, /* The page number you want to see.
+                      Imagine 103 records are available.
+                      If the size of 50 is given as a parameter
+                      then valid inputs to offset would be 1, 2, and 3. */
+  }
+});
+````
+
+
+Your response will contain a meta object with the following data:
+```js
+meta: {
+  size: n           // Size input above
+  offset: m         // Offset input above
+  record_count: i   /* The number of records in the page.
+                       In the `offset` example above pages 1 and 2
+                       would have a record_count of 50 while page 3
+                       would have a record count of 3. */
+  total_records: j // Total number of records accessible
+  total_pages: k   // Total number of pages accessible
+}
+```
+
 ### Overrides
 Overriding the default model class, serializer class, filter class, and filter parameter can be done like so:
 
