@@ -18,8 +18,8 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -- {spec}/*`.split("\n")
   s.require_paths = %w(lib app)
 
-  s.add_runtime_dependency 'activerecord',             '>= 4.1.0'
-  s.add_runtime_dependency 'activesupport',            '>= 4.1.0'
+  s.add_runtime_dependency 'activerecord',             '>= 4.1.16'
+  s.add_runtime_dependency 'activesupport',            '>= 4.1.16'
   s.add_runtime_dependency 'pundit',                   '~> 1.1.0'
   s.add_runtime_dependency 'active_model_serializers', '~> 0.10.0'
   s.add_runtime_dependency 'search_object',            '~> 1.0'
