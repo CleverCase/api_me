@@ -18,9 +18,9 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -- {spec}/*`.split("\n")
   s.require_paths = %w(lib app)
 
-  s.add_runtime_dependency 'activerecord',             '>= 3.2.0'
-  s.add_runtime_dependency 'activesupport',            '>= 3.2.0'
-  s.add_runtime_dependency 'pundit',                   '~> 1.0'
+  s.add_runtime_dependency 'activerecord',             '~> 4.2.5'
+  s.add_runtime_dependency 'activesupport',            '~> 4.2.5'
+  s.add_runtime_dependency 'pundit',                   '~> 1.1.0'
   s.add_runtime_dependency 'active_model_serializers', '~> 0.10.0'
   s.add_runtime_dependency 'search_object',            '~> 1.0'
   s.add_runtime_dependency 'kaminari',                 '~> 0.16.3'
@@ -28,6 +28,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'combustion',  '~> 0.5.1'
   s.add_development_dependency 'rspec-rails', '~> 3'
   s.add_development_dependency 'sqlite3',     '~> 1.3.7'
-  s.add_development_dependency 'rubocop', '>= 0.27.0'
+  s.add_development_dependency 'rubocop', '~> 0.49'
   s.add_development_dependency 'rake-notes', '>= 0.2.0'
 end
