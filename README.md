@@ -134,7 +134,7 @@ return this.store.query('some-model', {
   sort:  {
     criteria: 'createdAt', // Property to sort on.
     reverse: false, // True reverses the sort.
-  }
+  },
   page:  {
     size: 50, // Size of a page. Number of results per page.
     offset: false, /* The page number you want to see.
