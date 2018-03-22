@@ -18,11 +18,11 @@ module ApiMe
   end
 
   module ClassMethods
-    def model(klass) # rubocop:disable TrivialAccessors
+    def model(klass)
       @model_klass = klass
     end
 
-    def serializer(klass) # rubocop:disable TrivialAccessors
+    def serializer(klass)
       @serializer_klass = klass
     end
 
@@ -172,8 +172,8 @@ module ApiMe
 
   def filter_scope(scope)
     filter_klass.new(
-        scope: scope,
-        filters: filters_hash
+      scope: scope,
+      filters: filters_hash
     ).results
   end
 

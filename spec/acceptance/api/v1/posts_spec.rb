@@ -23,7 +23,6 @@ describe 'Posts API' do
     get '/api/v1/posts?page%5Boffset%5D=1'
     json = JSON.parse(last_response.body)
     expect(json['posts'].length).to eq(25)
-
   end
 
   it 'is page offset of 2 working for size of 40 default page size of 25' do
@@ -34,11 +33,10 @@ describe 'Posts API' do
     get '/api/v1/posts?page%5Boffset%5D=2'
     json = JSON.parse(last_response.body)
     expect(json['posts'].length).to eq(15)
-
   end
 
   it 'is page offset of -1 working for size of 40 default page size of 25' do
-    #min page offset is 1, anything less gets converted to 1 and results in page size records
+    # min page offset is 1, anything less gets converted to 1 and results in page size records
     40.times do
       Post.create(name: 'page item')
     end
@@ -46,11 +44,10 @@ describe 'Posts API' do
     get '/api/v1/posts?page%5Boffset%5D=-1'
     json = JSON.parse(last_response.body)
     expect(json['posts'].length).to eq(25)
-
   end
 
   it 'is page offset of 3 working for size of 40 default page size of 25' do
-    #overflow on page offset will result in 0 records
+    # overflow on page offset will result in 0 records
     40.times do
       Post.create(name: 'page item')
     end
@@ -61,7 +58,7 @@ describe 'Posts API' do
   end
 
   it 'is page size of 10 working for default offset of 1' do
-    #overflow on page offset will result in 0 records
+    # overflow on page offset will result in 0 records
     40.times do
       Post.create(name: 'page item')
     end
@@ -69,11 +66,10 @@ describe 'Posts API' do
     get '/api/v1/posts?page%5Bsize%5D=10'
     json = JSON.parse(last_response.body)
     expect(json['posts'].length).to eq(10)
-
   end
 
   it 'is page size working when the value is negative' do
-    #overflow on page offset will result in 0 records
+    # overflow on page offset will result in 0 records
     40.times do
       Post.create(name: 'page item')
     end
@@ -81,11 +77,10 @@ describe 'Posts API' do
     get '/api/v1/posts?page%5Bsize%5D=-10'
     json = JSON.parse(last_response.body)
     expect(json['posts'].length).to eq(25)
-
   end
 
   it 'is page size working when the value is higher than the total record count' do
-    #overflow on page offset will result in 0 records
+    # overflow on page offset will result in 0 records
     40.times do
       Post.create(name: 'page item')
     end
@@ -96,7 +91,7 @@ describe 'Posts API' do
   end
 
   it 'is the result all records when no page paramas are sent' do
-    #overflow on page offset will result in 0 records
+    # overflow on page offset will result in 0 records
     100.times do
       Post.create(name: 'page item')
     end
@@ -104,7 +99,6 @@ describe 'Posts API' do
     get '/api/v1/posts'
     json = JSON.parse(last_response.body)
     expect(json['posts'].length).to eq(100)
-
   end
 
   it 'restricts page_size when max_per_page config is less' do
@@ -129,7 +123,7 @@ describe 'Posts API' do
     filtered_posts = [all_posts[0], all_posts[2]]
 
     get '/api/v1/posts?ids%5B%5D=' + filtered_posts[0].id.to_s +
-      '&ids%5B%5D=' + filtered_posts[1].id.to_s
+        '&ids%5B%5D=' + filtered_posts[1].id.to_s
 
     expect(last_response.status).to eq(200)
     json = JSON.parse(last_response.body)

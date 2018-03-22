@@ -17,7 +17,7 @@ end
 task default: 'reports:all'
 
 namespace :reports do
-  task all: [:fixme_notes, :rubocop, :spec]
+  task all: %i[fixme_notes rubocop spec]
 
   task :rubocop do
     system 'bundle exec rubocop --rails --display-cop-names'
