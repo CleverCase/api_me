@@ -3,8 +3,8 @@ PATH
   specs:
     api_me (0.8.3)
       active_model_serializers (~> 0.10.0)
-      activerecord (~> 4.2.5)
-      activesupport (~> 4.2.5)
+      activerecord (>= 4.1.16)
+      activesupport (>= 4.1.16)
       kaminari (~> 0.16.3)
       pundit (~> 1.1.0)
       search_object (~> 1.0)
