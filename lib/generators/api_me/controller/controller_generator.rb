@@ -1,7 +1,7 @@
 module ApiMe
   module Generators
     class ControllerGenerator < ::Rails::Generators::NamedBase
-      source_root File.expand_path('../templates', __FILE__)
+      source_root File.expand_path('templates', __dir__)
       check_class_collision suffix: 'Controller'
 
       argument :attributes, type: :array, default: [], banner: 'field field'
@@ -33,7 +33,7 @@ module ApiMe
       end
 
       def attributes_names
-        [:id] + attributes.select { |attr| !attr.reference? }.map { |a| a.name.to_sym }
+        [:id] + attributes.reject(&:reference?).map { |a| a.name.to_sym }
       end
 
       def associations
@@ -41,19 +41,19 @@ module ApiMe
       end
 
       def nonpolymorphic_attribute_names
-        associations.select { |attr| attr.type.in?([:belongs_to, :references]) }
-          .reject { |attr| attr.attr_options.fetch(:polymorphic, false) }
-          .map { |attr| "#{attr.name}_id".to_sym }
+        associations.select { |attr| attr.type.in?(%i[belongs_to references]) }
+                    .reject { |attr| attr.attr_options.fetch(:polymorphic, false) }
+                    .map { |attr| "#{attr.name}_id".to_sym }
       end
 
       def polymorphic_attribute_names
-        associations.select { |attr| attr.type.in?([:belongs_to, :references]) }
-          .select { |attr| attr.attr_options.fetch(:polymorphic, false) }
-          .map { |attr| ["#{attr.name}_id".to_sym, "#{attr.name}_type".to_sym] }.flatten
+        associations.select { |attr| attr.type.in?(%i[belongs_to references]) }
+                    .select { |attr| attr.attr_options.fetch(:polymorphic, false) }
+                    .map { |attr| ["#{attr.name}_id".to_sym, "#{attr.name}_type".to_sym] }.flatten
       end
 
       def association_attribute_names
-        nonpolymorphic_attribute_names + (polymorphic_attribute_names)
+        nonpolymorphic_attribute_names + polymorphic_attribute_names
       end
 
       def strong_parameters

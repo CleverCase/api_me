@@ -16,7 +16,7 @@ module ApiMe
     end
 
     def page_meta
-      return Hash.new unless paging?
+      return {} unless paging?
       {
         size: page_size.nil? ? default_page_size : page_size,
         offset: page_offset,
@@ -29,14 +29,12 @@ module ApiMe
     protected
 
     def page
-      self.scope = scope.page(self.page_offset ? page_offset : 1)
+      self.scope = scope.page(page_offset ? page_offset : 1)
       self
     end
 
     def per
-      if page_size
-        self.scope = scope.per(page_size)
-      end
+      self.scope = scope.per(page_size) if page_size
       self
     end
 
@@ -49,6 +47,5 @@ module ApiMe
     def paging?
       page_size || page_offset
     end
-
   end
 end

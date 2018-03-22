@@ -9,8 +9,7 @@ class TestModel < ActiveModelSerializers::Model
     @created ||= false
   end
 
-  def initialize(*_args)
-  end
+  def initialize(*_args); end
 
   def save!(*_args)
     TestModel.create

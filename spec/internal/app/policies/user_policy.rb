@@ -1,6 +1,6 @@
 class UserPolicy < ApplicationPolicy
   def permitted_attributes
-    [:id, :username]
+    %i[id username]
   end
 
   class Scope < ApplicationPolicy::Scope

@@ -1,5 +1,5 @@
 begin
-  require "active_model_serializers"
+  require 'active_model_serializers'
 rescue LoadError
   puts "Could not load 'active_model_serializers'"
   exit
