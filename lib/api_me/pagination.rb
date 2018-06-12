@@ -17,12 +17,18 @@ module ApiMe
 
     def page_meta
       return {} unless paging?
+      iteration_count_start = (page_size.to_i * (page_offset.to_i - 1)) + 1
+      iteration_count_end = page_size.to_i * page_offset.to_i
+      iteration_count_offset = scope.total_count < iteration_count_end ? scope.total_count : iteration_count_end
       {
         size: page_size.nil? ? default_page_size : page_size,
         offset: page_offset,
         record_count: scope.size,
         total_records: scope.total_count,
-        total_pages: scope.total_pages
+        total_pages: scope.total_pages,
+        iteration_count_start: iteration_count_start,
+        iteration_count_end: iteration_count_end,
+        current_iteration_count: iteration_count_start - iteration_count_offset
       }
     end
 
