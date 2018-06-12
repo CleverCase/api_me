@@ -125,7 +125,7 @@ return this.store.query('some-model', {
 
 To enable pagination just pass `page` in your request with `size` and `offset`.
 
-Also see [ember-bootstrap-controls](http://localhost:4200/?s=Bootstrap%20Controls&ss=Pagination) for a handy control for easy pagination with ember.
+Also see [ember-bootstrap-controls](http://wildland.github.io/ember-bootstrap-controls/?s=Bootstrap%20Controls&ss=Pagination) for a handy control for easy pagination with ember.
 
 Ember Example
 ````js
