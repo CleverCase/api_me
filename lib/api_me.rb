@@ -177,10 +177,10 @@ module ApiMe
     ).results
   end
 
-  def sort_scope(scope)
+  def sort_scope(scope, sortable_params=sort_params)
     sort_klass.new(
         scope: scope,
-        sort_params: sort_hash
+        sort_params: sortable_params
     ).results
   end
 
@@ -199,10 +199,6 @@ module ApiMe
 
   def filter_params
     params[:filters]
-  end
-
-  def sort_hash
-    sort_params
   end
 
   def sort_params
