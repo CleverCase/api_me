@@ -96,7 +96,7 @@ module ApiMe
     authorize @object
     @object.update!(object_params)
 
-    render status: 204, nothing: true
+    head 204
   rescue ActiveRecord::RecordInvalid => e
     handle_errors(e)
   end
@@ -105,7 +105,7 @@ module ApiMe
     @object = find_resource
     authorize @object
     @object.destroy
-    render status: 204, nothing: true
+    head 204
   rescue ActiveRecord::RecordInvalid => e
     handle_errors(e)
   end
@@ -147,7 +147,7 @@ module ApiMe
   end
 
   def resource_not_found
-    render status: 404, nothing: true
+    head 404
   end
 
   def model_klass
