@@ -23,15 +23,21 @@ describe 'Users API' do
     expect(last_response.status).to eq(404)
   end
 
-  it 'sends an individual user' do
-    user = User.create(username: 'Test')
+  it 'returns a 404 for new' do
 
-    get '/api/v1/users/' + user.id.to_s + '/'
+    get '/api/v1/users/new'
 
-    expect(last_response.status).to eq(200)
-    json = JSON.parse(last_response.body)
+    expect(last_response.status).to eq(404)
+  end
 
-    expect(json['user']['id']).to eq(user.id)
+  it 'returns a 404 for edit' do
+    user = User.create(username: 'Foo')
+
+    expect(user.username).to eq('Foo')
+
+    get '/api/v1/users/' + user.id.to_s + '/edit'
+
+    expect(last_response.status).to eq(404)
   end
 
   it 'creates a new user' do
