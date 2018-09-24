@@ -76,7 +76,7 @@ module ApiMe
         in_root do
           insert_into_file(
             'config/routes.rb',
-            "      resources :#{resource_name}\n",
+            "      resources :#{resource_name}, only: [:show, :index, :create, :update, :destroy]\n",
             after: "namespace :#{controllers_api_version} do\n"
           )
         end

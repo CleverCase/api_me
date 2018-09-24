@@ -81,6 +81,12 @@ module ApiMe
     render json: @object, root: singular_root_key, serializer: serializer_klass
   end
 
+  def new
+    @object = model_klass.new
+    authorize @object
+    render_errors(['new endpoint not supported'], 404)
+  end
+
   def create
     @object = model_klass.new(object_params)
     authorize @object
@@ -89,6 +95,12 @@ module ApiMe
     render status: 201, json: @object, root: singular_root_key, serializer: serializer_klass
   rescue ActiveRecord::RecordInvalid => e
     handle_errors(e)
+  end
+
+  def edit
+    @object = find_resource
+    authorize @object
+    render_errors(['edit endpoint not supported'], 404)
   end
 
   def update
