@@ -1,0 +1,10 @@
+Pull Request Description:
+(Description in grammatically correct, complete sentences)
+
+New Pull Request Checklist:
+- [ ] Reviewed [contributing guidelines](CONTRIBUTING.md).
+- [ ] [good commit messages](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
+- [ ] Github issue added, if it exists.
+- [ ] Added an entry to the [Changelog](CHANGELOG.md).
+- [ ] All tests passing: run `npm test`.
+- [ ] New component tests include [ember-a11y-testing](https://github.com/ember-a11y/ember-a11y-testing) to test accessibility.
