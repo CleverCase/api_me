@@ -76,20 +76,21 @@ module ApiMe
 
   def show
     @object = find_resource
-    authorize @object
+    authorize_resource @object
 
     render json: @object, root: singular_root_key, serializer: serializer_klass
   end
 
   def new
     @object = model_klass.new
-    authorize @object
+    authorize_resource @object
+
     render_errors(['new endpoint not supported'], 404)
   end
 
   def create
-    @object = model_klass.new(object_params)
-    authorize @object
+    @object = build_resource
+    authorize_resource @object
     @object.save!(object_params)
 
     render status: 201, json: @object, root: singular_root_key, serializer: serializer_klass
@@ -99,13 +100,14 @@ module ApiMe
 
   def edit
     @object = find_resource
-    authorize @object
+    authorize_resource @object
+
     render_errors(['edit endpoint not supported'], 404)
   end
 
   def update
     @object = find_resource
-    authorize @object
+    authorize_resource @object
     @object.update!(object_params)
 
     head 204
@@ -115,8 +117,9 @@ module ApiMe
 
   def destroy
     @object = find_resource
-    authorize @object
+    authorize_resource @object
     @object.destroy
+
     head 204
   rescue ActiveRecord::RecordInvalid => e
     handle_errors(e)
@@ -213,11 +216,15 @@ module ApiMe
     params[:filters]
   end
 
-  def sort_params
-    params[:sort]
+  def find_resource
+    @find_resource ||= model_klass.find_by_id!(params[:id])
   end
 
-  def find_resource
-    model_klass.find_by_id!(params[:id])
+  def build_resource
+    @build_resource ||= model_klass.new(object_params)
+  end
+
+  def authorize_resource(resource)
+    authorize resource
   end
 end
