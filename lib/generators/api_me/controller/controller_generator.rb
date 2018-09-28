@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApiMe
   module Generators
     class ControllerGenerator < ::Rails::Generators::NamedBase
@@ -76,7 +78,7 @@ module ApiMe
         in_root do
           insert_into_file(
             'config/routes.rb',
-            "      resources :#{resource_name}, only: [:show, :index, :create, :update, :destroy]\n",
+            "      resources :#{resource_name}, only: [:show, :index, :create, :update, :destroy]\n", # rubocop:disable Metrics/LineLength
             after: "namespace :#{controllers_api_version} do\n"
           )
         end
@@ -85,11 +87,11 @@ module ApiMe
       def maybe_create_api_v1_namespace
         in_root do
           unless File.readlines('config/routes.rb').grep("namespace #{controllers_namespace} do")
-            route <<-ROUTE
-namespace :#{controllers_namespace} do
-    namespace :#{controllers_api_version} do
-    end
-  end
+            route <<~ROUTE
+              namespace :#{controllers_namespace} do
+                  namespace :#{controllers_api_version} do
+                  end
+                end
 ROUTE
           end
         end

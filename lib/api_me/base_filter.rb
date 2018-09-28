@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApiMe
   class BaseFilter
     include SearchObject.module

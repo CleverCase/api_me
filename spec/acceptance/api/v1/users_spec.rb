@@ -1,4 +1,8 @@
-describe 'Users API', type: :api do
+# frozen_string_literal: true
+
+require 'spec_helper'
+
+describe 'Users API', type: :api do # rubocop:disable Metrics/BlockLength
   it 'sends the list of users' do
     users = [
       User.create(username: 'Test'),
@@ -21,7 +25,6 @@ describe 'Users API', type: :api do
   end
 
   it 'returns a 404 for new' do
-
     get '/api/v1/users/new'
 
     expect(last_response.status).to eq(404)

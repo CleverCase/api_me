@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+require 'spec_helper'
+
 describe 'fails API', type: :api do
   it 'fails in the before action' do
     get '/api/v1/fails'

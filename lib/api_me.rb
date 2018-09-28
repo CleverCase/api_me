@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'active_support/concern'
 require 'pundit'
 require 'search_object'
@@ -71,7 +73,7 @@ module ApiMe
     @sorted_scope = sort_scope(@filter_scope)
     @pagination_object = paginate_scope(@sorted_scope, page_params)
 
-    render json: @pagination_object.results, root: collection_root_key, each_serializer: serializer_klass, meta: { page: @pagination_object.page_meta }
+    render json: @pagination_object.results, root: collection_root_key, each_serializer: serializer_klass, meta: { page: @pagination_object.page_meta } # rubocop:disable Metrics/LineLength
   end
 
   def show
@@ -95,7 +97,7 @@ module ApiMe
 
     render status: 201, json: @object, root: singular_root_key, serializer: serializer_klass
   rescue ActiveRecord::RecordInvalid => e
-    handle_errors(e)
+    handle_active_record_errors(e)
   end
 
   def edit
@@ -112,7 +114,7 @@ module ApiMe
 
     head 204
   rescue ActiveRecord::RecordInvalid => e
-    handle_errors(e)
+    handle_active_record_errors(e)
   end
 
   def destroy
@@ -122,7 +124,7 @@ module ApiMe
 
     head 204
   rescue ActiveRecord::RecordInvalid => e
-    handle_errors(e)
+    handle_active_record_errors(e)
   end
 
   protected
@@ -151,9 +153,9 @@ module ApiMe
     render(json: { errors: errors }, status: status)
   end
 
-  def handle_errors(e)
-    Rails.logger.debug "ERROR: #{e}"
-    render_errors(e.record.errors.messages)
+  def handle_active_record_errors(active_record_error)
+    Rails.logger.debug "ERROR: #{active_record_error}"
+    render_errors(active_record_error.record.errors.messages)
   end
 
   def user_not_authorized
@@ -192,10 +194,10 @@ module ApiMe
     ).results
   end
 
-  def sort_scope(scope, sortable_params=sort_params)
+  def sort_scope(scope, sortable_params = sort_params)
     sort_klass.new(
-        scope: scope,
-        sort_params: sortable_params
+      scope: scope,
+      sort_params: sortable_params
     ).results
   end
 

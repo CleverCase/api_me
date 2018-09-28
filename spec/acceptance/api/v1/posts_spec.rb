@@ -1,4 +1,8 @@
-describe 'Posts API', type: :api do
+# frozen_string_literal: true
+
+require 'spec_helper'
+
+describe 'Posts API', type: :api do # rubocop:disable Metrics/BlockLength
   it 'sends the list of posts using the default filter' do
     user = User.create(username: 'Test User')
 
@@ -143,8 +147,8 @@ describe 'Posts API', type: :api do
       Post.create(name: 'Post' + i.to_s)
     end
 
-    get '/api/v1/posts?page%5Boffset%5D=1&page%5Bsize%5D=10&sort%5Bcriteria%5D=id&sort%5Breverse%5D=true'
-
+    get '/api/v1/posts?page%5Boffset%5D=1&page%5Bsize%5D=10&sort%5Bcriteria%5D=id&sort%5Breverse%5D=true' # rubocop:disable Metrics/LineLength
+    
     expect(json['posts'].first['name']).to eq('Post19')
     expect(json['posts'].length).to eq(10)
   end
