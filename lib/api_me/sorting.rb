@@ -1,13 +1,14 @@
+# frozen_string_literal: true
+
 module ApiMe
   class Sorting
     attr_accessor :sort_criteria, :sort_reverse, :scope
 
     def initialize(scope:, sort_params:)
       self.scope = scope
-      if sort_params
-        self.sort_criteria = sort_params[:criteria] || default_sort_criteria
-        self.sort_reverse = sort_params[:reverse]
-      end
+      return unless sort_params
+      self.sort_criteria = sort_params[:criteria] || default_sort_criteria
+      self.sort_reverse = sort_params[:reverse]
     end
 
     def results
@@ -17,7 +18,7 @@ module ApiMe
     def sort_meta
       return {} unless sorting?
       {
-        criteria: sort_criteria.is_blank? || sort_criteria === '' ? default_sort_criteria : sort_criteria,
+        criteria: sort_meta_criteria,
         reverse: sort_reverse,
         record_count: scope.size,
         total_records: scope.total_count
@@ -26,19 +27,31 @@ module ApiMe
 
     protected
 
+    def sort_meta_criteria
+      if sort_criteria.blank?
+        default_sort_criteria
+      else
+        sort_criteria
+      end
+    end
+
     def sort(criteria = default_sort_criteria)
-      self.scope = if sort_reverse === 'true'
-                     scope.order(criteria => :desc)
-                   else
-                     scope.order(criteria => :asc)
-                   end
+      self.scope = sorted_scope(criteria)
       self
+    end
+
+    def sorted_scope(criteria)
+      if sort_reverse === 'true'
+        scope.order(criteria => :desc)
+      else
+        scope.order(criteria => :asc)
+      end
     end
 
     private
 
     def default_sort_criteria
-      sort_criteria = 'id'
+      'id'
     end
 
     def sorting?

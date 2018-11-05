@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::V1::FailsController < ApplicationController # rubocop:disable ClassAndModuleChildren
   include ApiMe
 

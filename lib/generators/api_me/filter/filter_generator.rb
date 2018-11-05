@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApiMe
   module Generators
     class FilterGenerator < ::Rails::Generators::NamedBase
