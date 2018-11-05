@@ -28,7 +28,7 @@ module ApiMe
     protected
 
     def sort_meta_criteria
-      if sort_criteria.is_blank?
+      if sort_criteria.blank?
         default_sort_criteria
       else
         sort_criteria
