@@ -1,11 +1,11 @@
 PATH
   remote: .
   specs:
-    api_me (0.10.0)
+    api_me (0.10.1)
       active_model_serializers (~> 0.10.6)
-      kaminari (~> 0.17.0)
+      kaminari (~> 1.0)
       pundit (~> 1.0)
-      rails (~> 4.2)
+      rails (>= 4.2)
       search_object (~> 1.0)
 
 GEM
@@ -72,9 +72,18 @@ GEM
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
     jsonapi-renderer (0.2.0)
-    kaminari (0.17.0)
-      actionpack (>= 3.0.0)
-      activesupport (>= 3.0.0)
+    kaminari (1.1.1)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.1.1)
+      kaminari-activerecord (= 1.1.1)
+      kaminari-core (= 1.1.1)
+    kaminari-actionview (1.1.1)
+      actionview
+      kaminari-core (= 1.1.1)
+    kaminari-activerecord (1.1.1)
+      activerecord
+      kaminari-core (= 1.1.1)
+    kaminari-core (1.1.1)
     loofah (2.2.2)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
