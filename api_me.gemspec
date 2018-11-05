@@ -14,20 +14,16 @@ Gem::Specification.new do |s|
   s.description = "This friendly library gives you helpers and generators to assist building RESTful API's in your Rails app."
   s.license     = 'MIT'
 
-  s.files         = `git ls-files`.split("\n")
-  s.test_files    = `git ls-files -- {spec}/*`.split("\n")
-  s.require_paths = %w(lib app)
+  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
 
-  s.add_runtime_dependency 'activerecord',             '>= 4.1.16'
-  s.add_runtime_dependency 'activesupport',            '>= 4.1.16'
-  s.add_runtime_dependency 'pundit',                   '~> 1.1.0'
-  s.add_runtime_dependency 'active_model_serializers', '~> 0.10.0'
-  s.add_runtime_dependency 'search_object',            '~> 1.0'
-  s.add_runtime_dependency 'kaminari',                 '~> 1.0'
+  s.add_dependency 'rails',                    '~> 4.2'
+  s.add_dependency 'pundit',                   '~> 1.0'
+  s.add_dependency 'active_model_serializers', '~> 0.10.6'
+  s.add_dependency 'search_object',            '~> 1.0'
+  s.add_dependency 'kaminari',                 '~> 0.17.0'
 
-  s.add_development_dependency 'combustion',  '~> 0.5.1'
-  s.add_development_dependency 'rspec-rails', '~> 3'
-  s.add_development_dependency 'sqlite3',     '~> 1.3.7'
-  s.add_development_dependency 'rubocop', '~> 0.49'
-  s.add_development_dependency 'rake-notes', '>= 0.2.0'
+  s.add_development_dependency 'rspec-rails', '~> 3.6.1'
+  s.add_development_dependency 'factory_girl_rails', '~> 4.8.0'
+  s.add_development_dependency "sqlite3"
+  s.add_development_dependency 'rubocop', '>= 0.27.0'
 end

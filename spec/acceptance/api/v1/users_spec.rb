@@ -1,6 +1,4 @@
-require 'spec_helper'
-
-describe 'Users API' do
+describe 'Users API', type: :api do
   it 'sends the list of users' do
     users = [
       User.create(username: 'Test'),
@@ -10,7 +8,6 @@ describe 'Users API' do
     get '/api/v1/users'
 
     expect(last_response.status).to eq(200)
-    json = JSON.parse(last_response.body)
 
     expect(json['users'].length).to eq(users.count)
   end
@@ -48,7 +45,6 @@ describe 'Users API' do
     post '/api/v1/users/', user: user_params
 
     expect(last_response.status).to eq(201)
-    json = JSON.parse(last_response.body)
 
     expect(json['user']['username']).to eq(user_params[:username])
   end
@@ -89,7 +85,6 @@ describe 'Users API' do
     get '/api/v1/users?filters%5Bsearch%5D=Test'
 
     expect(last_response.status).to eq(200)
-    json = JSON.parse(last_response.body)
 
     expect(json['users'].length).to eq(filtered_users.count)
   end
