@@ -1,0 +1,17 @@
+<DESCRIPTION HERE>
+...
+New Issue Checklist
+- [ ] Checked that the issue has not already been reported.
+- [ ] Checked that the issue has not already been fixed in the latest code (a.k.a. master).
+- [ ] Issue description of problem is clear, concise and precise.
+- [ ] Issue has a a descriptive title and a summary in grammatically correct, complete sentences.
+- [ ] Includes the version of api_me that you are using.
+- [ ] Includes any relevant code to the issue summary.
+
+Is this a bug or a feature request?
+
+For bugs...
+Can the problem be recreated? If so how?
+
+For features...
+Why is this feature important?
