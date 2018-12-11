@@ -8,7 +8,7 @@ module ApiMe
       self.scope = scope
       return unless sort_params
       self.sort_criteria = sort_params[:criteria] || default_sort_criteria
-      self.sort_reverse = sort_params[:reverse]
+      self.sort_reverse = sort_params[:reverse] || false
     end
 
     def results
@@ -19,9 +19,7 @@ module ApiMe
       return {} unless sorting?
       {
         criteria: sort_meta_criteria,
-        reverse: sort_reverse,
-        record_count: scope.size,
-        total_records: scope.total_count
+        reverse: sort_reverse
       }
     end
 

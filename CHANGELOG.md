@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
   * Added CONTRIBUTING.md. ([@jweakley][])
   * Added CHANGELOG.md format. ([@jweakley][])
   * Added Github issue/pull request templates. ([@jweakley][])
+  * Added `meta.sort` to index resource responses. git ([@jweakley][])
 
 ### Changed
   * Updated README.md to be more inline with other wildland open-source projects. ([@jweakley][])
