@@ -73,7 +73,15 @@ module ApiMe
     @sorted_scope = sort_scope(@filter_scope)
     @pagination_object = paginate_scope(@sorted_scope, page_params)
 
-    render json: @pagination_object.results, root: collection_root_key, each_serializer: serializer_klass, meta: { page: @pagination_object.page_meta } # rubocop:disable Metrics/LineLength
+    render({
+      json: @pagination_object.results,
+      root: collection_root_key,
+      each_serializer: serializer_klass,
+      meta: {
+        page: @pagination_object.page_meta,
+        sort: sorting_meta(@filter_scope)
+      }
+    })
   end
 
   def show
@@ -192,6 +200,13 @@ module ApiMe
       scope: scope,
       filters: filters_hash
     ).results
+  end
+
+  def sorting_meta(scope, sortable_params = sort_params)
+    sort_klass.new(
+      scope: scope,
+      sort_params: sortable_params
+    ).sort_meta
   end
 
   def sort_scope(scope, sortable_params = sort_params)
