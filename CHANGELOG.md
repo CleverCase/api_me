@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Added
+### Changed
+### Deprecated
+### Removed
+### Fixed
+### Security
+
+## [0.10.2] - 2018-12-11
+### Added
   * Added CONTRIBUTING.md. ([@jweakley][])
   * Added CHANGELOG.md format. ([@jweakley][])
   * Added Github issue/pull request templates. ([@jweakley][])
