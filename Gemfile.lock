@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    api_me (0.10.2)
+    api_me (0.10.3)
       active_model_serializers (~> 0.10.6)
       kaminari (~> 1.0)
       pundit (~> 1.0)

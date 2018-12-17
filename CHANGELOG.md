@@ -7,7 +7,19 @@ All notable changes to this project will be documented in this file.
 ### Deprecated
 ### Removed
 ### Fixed
-  * Added back `handle_errors` to prevent breakage in apps using this method.
+### Security
+
+## [0.10.3] - 2018-12-17
+### Added
+  No changes
+### Changed
+  No changes
+### Deprecated
+  No changes
+### Removed
+  No changes
+### Fixed
+  * Added back `handle_errors` to prevent breakage in apps using this method. ([@samsinite][])
 ### Security
 
 ## [0.10.2] - 2018-12-11
@@ -28,4 +40,5 @@ All notable changes to this project will be documented in this file.
   * Updated `loofah` to 2.2.3 per [CVE-2018-16468](https://nvd.nist.gov/vuln/detail/CVE-2018-16468)  ([@jweakley][])
   * Updated `rack` to 1.6.1 per [CVE-2018-16471](https://nvd.nist.gov/vuln/detail/CVE-2018-16471)  ([@jweakley][])
 
+[@samsinite]: https://github.com/Samsinite
 [@jweakley]: https://github.com/jweakley
