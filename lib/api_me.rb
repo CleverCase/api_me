@@ -165,6 +165,7 @@ module ApiMe
     Rails.logger.debug "ERROR: #{active_record_error}"
     render_errors(active_record_error.record.errors.messages)
   end
+  alias handle_errors handle_active_record_errors
 
   def user_not_authorized
     payload = { message: "User is not allowed to access #{params[:action]} on this resource" }

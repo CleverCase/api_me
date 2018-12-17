@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Deprecated
 ### Removed
 ### Fixed
+  * Added back `handle_errors` to prevent breakage in apps using this method.
 ### Security
 
 ## [0.10.2] - 2018-12-11
