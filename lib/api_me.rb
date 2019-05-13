@@ -16,6 +16,7 @@ module ApiMe
 
   included do
     rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+    rescue_from ActiveRecord::ActiveRecordError, with: :handle_active_record_errors
     rescue_from ActiveRecord::RecordNotFound, with: :resource_not_found
   end
 
@@ -73,7 +74,7 @@ module ApiMe
     @sorted_scope = sort_scope(@filter_scope)
     @pagination_object = paginate_scope(@sorted_scope, page_params)
 
-    render({
+    render(
       json: @pagination_object.results,
       root: collection_root_key,
       each_serializer: serializer_klass,
@@ -81,7 +82,7 @@ module ApiMe
         page: @pagination_object.page_meta,
         sort: sorting_meta(@filter_scope)
       }
-    })
+    )
   end
 
   def show
@@ -101,11 +102,9 @@ module ApiMe
   def create
     @object = build_resource
     authorize_resource @object
-    @object.save!(object_params)
+    create_resource!
 
     render status: 201, json: @object, root: singular_root_key, serializer: serializer_klass
-  rescue ActiveRecord::RecordInvalid => e
-    handle_active_record_errors(e)
   end
 
   def edit
@@ -118,21 +117,17 @@ module ApiMe
   def update
     @object = find_resource
     authorize_resource @object
-    @object.update!(object_params)
+    update_resource!
 
     head 204
-  rescue ActiveRecord::RecordInvalid => e
-    handle_active_record_errors(e)
   end
 
   def destroy
     @object = find_resource
     authorize_resource @object
-    @object.destroy
+    destroy_resource!
 
     head 204
-  rescue ActiveRecord::RecordInvalid => e
-    handle_active_record_errors(e)
   end
 
   protected
@@ -240,6 +235,18 @@ module ApiMe
 
   def build_resource
     @build_resource ||= model_klass.new(object_params)
+  end
+
+  def create_resource!
+    @object.save!(object_params)
+  end
+
+  def update_resource!
+    @object.update!(object_params)
+  end
+
+  def destroy_resource!
+    @object.destroy!
   end
 
   def authorize_resource(resource)

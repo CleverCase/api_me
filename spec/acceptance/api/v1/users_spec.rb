@@ -13,7 +13,7 @@ describe 'Users API', type: :api do # rubocop:disable Metrics/BlockLength
 
     expect(last_response.status).to eq(200)
 
-    expect(json['users'].length).to eq(users.count)
+    expect(json.length).to eq(users.count)
   end
 
   it 'returns a 404 for a user that does not exist' do
@@ -40,28 +40,59 @@ describe 'Users API', type: :api do # rubocop:disable Metrics/BlockLength
     expect(last_response.status).to eq(404)
   end
 
-  it 'creates a new user' do
-    user_params = {
-      username: 'Test'
-    }
+  context 'create' do
+    context 'valid state' do
+      it 'creates a new user' do
+        user_params = {
+          username: 'Test'
+        }
 
-    post '/api/v1/users/', user: user_params
+        post '/api/v1/users/', user: user_params
 
-    expect(last_response.status).to eq(201)
+        expect(last_response.status).to eq(201)
+        expect(json['user']['username']).to eq(user_params[:username])
+      end
+    end
+    context 'invalid record' do
+      it 'handles error' do
+        user_params = {
+          username: ''
+        }
+        post '/api/v1/users/', user: user_params
 
-    expect(json['user']['username']).to eq(user_params[:username])
+        expect(last_response.status).to eq(422)
+        expect(json['errors']['username']).to eq(["can't be blank"])
+      end
+    end
   end
 
-  it 'updates an existing user' do
-    user = User.create(username: 'Foo')
+  context 'update' do
+    context 'valid state' do
+      it 'updates an existing user' do
+        user = User.create(username: 'Foo')
 
-    expect(user.username).to eq('Foo')
+        expect(user.username).to eq('Foo')
 
-    put '/api/v1/users/' + user.id.to_s + '/', user: { username: 'Bar' }
+        put '/api/v1/users/' + user.id.to_s + '/', user: { username: 'Bar' }
 
-    updated_user = User.find(user.id)
-    expect(last_response.status).to eq(204)
-    expect(updated_user.username).to eq('Bar')
+        updated_user = User.find(user.id)
+        expect(last_response.status).to eq(204)
+        expect(updated_user.username).to eq('Bar')
+      end
+    end
+    context 'invalid record' do
+      it 'handles error' do
+        user = User.create(username: 'Foo')
+
+        expect(user.username).to eq('Foo')
+
+        put '/api/v1/users/' + user.id.to_s + '/', user: { username: '' }
+
+        updated_user = User.find(user.id)
+        expect(last_response.status).to eq(422)
+        expect(json['errors']['username']).to eq(["can't be blank"])
+      end
+    end
   end
 
   it 'destroys an existing user' do
@@ -89,6 +120,6 @@ describe 'Users API', type: :api do # rubocop:disable Metrics/BlockLength
 
     expect(last_response.status).to eq(200)
 
-    expect(json['users'].length).to eq(filtered_users.count)
+    expect(json.length).to eq(filtered_users.count)
   end
 end

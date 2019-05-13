@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class HasManyRelation
   attr_reader :descriptor
 
@@ -22,12 +24,12 @@ class HasManyRelation
 
     BatchLoader.for(object.id).batch do |relation_ids, loader|
       relation_class.joins(inverse_name.to_sym)
-        .where(id: relation_ids)
-        .pluck("#{object.class.table_name}.id", "#{table_name}.id")
-        .group_by { |set| set[0] }
-        .each_pair do |key, value|
-          loader.call(key, value.map { |set| set[1] })
-        end
+                    .where(id: relation_ids)
+                    .pluck("#{object.class.table_name}.id", "#{table_name}.id")
+                    .group_by { |set| set[0] }
+                    .each_pair do |key, value|
+        loader.call(key, value.map { |set| set[1] })
+      end
     end
   end
 end
@@ -92,20 +94,20 @@ class BaseSerializer
 
   def batch_has_many
     @lazy_has_many_relations = self.class.serializer_meta.has_many_relations.map do |relation|
-      { relation.name => relation.batch(self.object) }
+      { relation.name => relation.batch(object) }
     end
   end
 
   def hash_has_many_relations
-    @lazy_has_many_relations.reduce({}) { |relations_hash, lazy_hash|
+    @lazy_has_many_relations.reduce({}) do |relations_hash, lazy_hash|
       relations_hash.merge!(lazy_hash)
-    }
+    end
   end
 
   def hash_attributes
     self.class.serializer_meta.attributes.reduce({}) do |hash, attr|
-      if self.respond_to?(attr)
-        hash.merge!(attr => self.send(attr))
+      if respond_to?(attr)
+        hash.merge!(attr => send(attr))
       else
         hash.merge!(attr => object.send(attr))
       end

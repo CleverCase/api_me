@@ -3,6 +3,8 @@
 require 'active_model_serializers/model'
 
 class TestModel < ActiveModelSerializers::Model
+  attributes :created
+
   def self.create
     @created = true
   end

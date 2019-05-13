@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreatePostTags < ActiveRecord::Migration
   def change
     create_table :post_tags do |t|
