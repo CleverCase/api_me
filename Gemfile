@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 gemspec
 
-gem 'pg', '~> 0.21'
 gem 'batch-loader'
+gem 'pg', '~> 0.21'
 
 group :test do
-  gem 'rb-readline'
   gem 'pry-byebug'
+  gem 'rb-readline'
 end

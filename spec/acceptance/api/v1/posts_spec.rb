@@ -14,7 +14,7 @@ describe 'Posts API', type: :api do # rubocop:disable Metrics/BlockLength
     get '/api/v1/posts'
 
     expect(last_response.status).to eq(200)
-    expect(json['posts'].length).to eq(posts.count)
+    expect(json.length).to eq(posts.count)
   end
 
   it 'is paging with page offset using default page size and restricting size' do
@@ -24,7 +24,7 @@ describe 'Posts API', type: :api do # rubocop:disable Metrics/BlockLength
 
     get '/api/v1/posts?page%5Boffset%5D=1'
 
-    expect(json['posts'].length).to eq(25)
+    expect(json.length).to eq(25)
   end
 
   it 'is page offset of 2 working for size of 40 default page size of 25' do
@@ -34,7 +34,7 @@ describe 'Posts API', type: :api do # rubocop:disable Metrics/BlockLength
 
     get '/api/v1/posts?page%5Boffset%5D=2'
 
-    expect(json['posts'].length).to eq(15)
+    expect(json.length).to eq(15)
   end
 
   it 'is page offset of -1 working for size of 40 default page size of 25' do
@@ -45,7 +45,7 @@ describe 'Posts API', type: :api do # rubocop:disable Metrics/BlockLength
 
     get '/api/v1/posts?page%5Boffset%5D=-1'
 
-    expect(json['posts'].length).to eq(25)
+    expect(json.length).to eq(25)
   end
 
   it 'is page offset of 3 working for size of 40 default page size of 25' do
@@ -56,7 +56,7 @@ describe 'Posts API', type: :api do # rubocop:disable Metrics/BlockLength
 
     get '/api/v1/posts?page%5Boffset%5D=3'
 
-    expect(json['posts'].length).to eq(0)
+    expect(json.length).to eq(0)
   end
 
   it 'is page size of 10 working for default offset of 1' do
@@ -67,7 +67,7 @@ describe 'Posts API', type: :api do # rubocop:disable Metrics/BlockLength
 
     get '/api/v1/posts?page%5Bsize%5D=10'
 
-    expect(json['posts'].length).to eq(10)
+    expect(json.length).to eq(10)
   end
 
   it 'is page size working when the value is negative' do
@@ -78,7 +78,7 @@ describe 'Posts API', type: :api do # rubocop:disable Metrics/BlockLength
 
     get '/api/v1/posts?page%5Bsize%5D=-10'
 
-    expect(json['posts'].length).to eq(25)
+    expect(json.length).to eq(25)
   end
 
   it 'is page size working when the value is higher than the total record count' do
@@ -89,7 +89,7 @@ describe 'Posts API', type: :api do # rubocop:disable Metrics/BlockLength
 
     get '/api/v1/posts?page%5Bsize%5D=100'
 
-    expect(json['posts'].length).to eq(40)
+    expect(json.length).to eq(40)
   end
 
   it 'is the result all records when no page paramas are sent' do
@@ -100,7 +100,7 @@ describe 'Posts API', type: :api do # rubocop:disable Metrics/BlockLength
 
     get '/api/v1/posts'
 
-    expect(json['posts'].length).to eq(100)
+    expect(json.length).to eq(100)
   end
 
   it 'restricts page_size when max_per_page config is less' do
@@ -112,7 +112,7 @@ describe 'Posts API', type: :api do # rubocop:disable Metrics/BlockLength
 
     get '/api/v1/posts?page%5Bsize%5D=100'
 
-    expect(json['posts'].length).to eq(10)
+    expect(json.length).to eq(10)
   end
 
   it 'sends posts filtered by ids' do
@@ -129,7 +129,7 @@ describe 'Posts API', type: :api do # rubocop:disable Metrics/BlockLength
 
     expect(last_response.status).to eq(200)
 
-    expect(json['posts'].length).to eq(filtered_posts.count)
+    expect(json.length).to eq(filtered_posts.count)
   end
 
   it 'sends posts reverse sorted by id' do
@@ -139,7 +139,7 @@ describe 'Posts API', type: :api do # rubocop:disable Metrics/BlockLength
 
     get '/api/v1/posts?sort%5Bcriteria%5D=id&sort%5Breverse%5D=true'
 
-    expect(json['posts'].last['name']).to eq('Post0')
+    expect(json.last['posts']['name']).to eq('Post0')
   end
 
   it 'sends posts reverse sorted by id and paginated with a size of 10 and an offset of 1' do
@@ -148,8 +148,8 @@ describe 'Posts API', type: :api do # rubocop:disable Metrics/BlockLength
     end
 
     get '/api/v1/posts?page%5Boffset%5D=1&page%5Bsize%5D=10&sort%5Bcriteria%5D=id&sort%5Breverse%5D=true' # rubocop:disable Metrics/LineLength
-    
-    expect(json['posts'].first['name']).to eq('Post19')
-    expect(json['posts'].length).to eq(10)
+
+    expect(json.first['posts']['name']).to eq('Post19')
+    expect(json.length).to eq(10)
   end
 end

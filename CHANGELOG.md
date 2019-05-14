@@ -9,6 +9,23 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 ### Security
 
+## [0.10.4] - 2019-05-13
+### Added
+  * Added `create_resource!`, `update_resource!`, and `destroy_resource!` method hooks. ([@jweakley][])
+  * Added better ActiveRecord error handling. ([@jweakley][])
+### Changed
+  No changes
+### Deprecated
+  No changes
+### Removed
+  No changes
+### Fixed
+  * Updated `rubocop` violations. ([@jweakley][])
+  * Updated broken tests. ([@jweakley][])
+### Security
+  * Updated `actionview` to 4.2.11.1 per [CVE-2019-5418](https://groups.google.com/forum/#!topic/rubyonrails-security/zRNVOUhKHrg) ([@jweakley][])
+  * Updated `activejob` to 4.2.11 per [CVE-2018-16476](https://nvd.nist.gov/vuln/detail/CVE-2018-16476) ([@jweakley][])
+
 ## [0.10.3] - 2018-12-17
 ### Added
   No changes
