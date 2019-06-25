@@ -158,12 +158,7 @@ module ApiMe
 
   def handle_active_record_errors(active_record_error)
     Rails.logger.debug "ERROR: #{active_record_error}"
-    record = active_record_error.record
-    if record.present?
-      render_errors(record.errors.messages)
-    else
-      head 500
-    end
+    render_errors(active_record_error.record.errors.messages)
   end
   alias handle_errors handle_active_record_errors
 
