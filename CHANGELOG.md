@@ -9,6 +9,20 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 ### Security
 
+## [0.10.5] - 2019-06-25
+### Added
+  No changes
+### Changed
+  No changes
+### Deprecated
+  No changes
+### Removed
+  No changes
+### Fixed
+  * Fixed an edge case with ActiveRecord error handling. ([@jweakley][])
+### Security
+  No changes
+
 ## [0.10.4] - 2019-05-13
 ### Added
   * Added `create_resource!`, `update_resource!`, and `destroy_resource!` method hooks. ([@jweakley][])

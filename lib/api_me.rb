@@ -16,7 +16,7 @@ module ApiMe
 
   included do
     rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-    rescue_from ActiveRecord::ActiveRecordError, with: :handle_active_record_errors
+    rescue_from ActiveRecord::RecordInvalid, with: :handle_active_record_errors
     rescue_from ActiveRecord::RecordNotFound, with: :resource_not_found
   end
 
@@ -158,7 +158,12 @@ module ApiMe
 
   def handle_active_record_errors(active_record_error)
     Rails.logger.debug "ERROR: #{active_record_error}"
-    render_errors(active_record_error.record.errors.messages)
+    record = active_record_error.record
+    if record.present?
+      render_errors(record.errors.messages)
+    else
+      head 500
+    end
   end
   alias handle_errors handle_active_record_errors
 

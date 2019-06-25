@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    api_me (0.10.4)
+    api_me (0.10.5)
       actionview (>= 4.2.11.1)
       active_model_serializers (~> 0.10.6)
       activejob (>= 4.2.11)
@@ -75,7 +75,7 @@ GEM
       activesupport (>= 4.2.0)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
-    jsonapi-renderer (0.2.0)
+    jsonapi-renderer (0.2.2)
     kaminari (1.1.1)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.1.1)
@@ -171,7 +171,7 @@ GEM
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-progressbar (1.9.0)
-    search_object (1.2.1)
+    search_object (1.2.2)
     sprockets (3.7.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -185,9 +185,9 @@ GEM
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     unicode-display_width (1.3.0)
-    websocket-driver (0.7.0)
+    websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
-    websocket-extensions (0.1.3)
+    websocket-extensions (0.1.4)
 
 PLATFORMS
   ruby
