@@ -16,7 +16,7 @@ module ApiMe
 
   included do
     rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-    rescue_from ActiveRecord::ActiveRecordError, with: :handle_active_record_errors
+    rescue_from ActiveRecord::RecordInvalid, with: :handle_active_record_errors
     rescue_from ActiveRecord::RecordNotFound, with: :resource_not_found
   end
 
