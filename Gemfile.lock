@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    api_me (0.10.5)
+    api_me (0.10.6)
       actionview (>= 4.2.11.1)
       active_model_serializers (~> 0.10.6)
       activejob (>= 4.2.11)
@@ -36,9 +36,9 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
-    active_model_serializers (0.10.9)
-      actionpack (>= 4.1, < 6)
-      activemodel (>= 4.1, < 6)
+    active_model_serializers (0.10.10)
+      actionpack (>= 4.1, < 6.1)
+      activemodel (>= 4.1, < 6.1)
       case_transform (>= 0.2)
       jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
     activejob (5.2.3)
@@ -97,10 +97,10 @@ GEM
       mimemagic (~> 0.3.2)
     method_source (0.9.0)
     mimemagic (0.3.3)
-    mini_mime (1.0.1)
+    mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.11.3)
-    nio4r (2.3.1)
+    nio4r (2.4.0)
     nokogiri (1.10.4)
       mini_portile2 (~> 2.4.0)
     parallel (1.12.1)
@@ -203,4 +203,4 @@ DEPENDENCIES
   sqlite3
 
 BUNDLED WITH
-   1.17.1
+   1.17.3
