@@ -237,7 +237,7 @@ module ApiMe
   end
 
   def update_resource!
-    @object.save!(object_params) 
+    @object.save!(object_params)
   end
 
   def destroy_resource!
