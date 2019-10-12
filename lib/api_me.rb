@@ -93,9 +93,6 @@ module ApiMe
   end
 
   def new
-    @object = model_klass.new
-    authorize_resource @object
-
     render_errors(['new endpoint not supported'], 404)
   end
 
@@ -108,9 +105,6 @@ module ApiMe
   end
 
   def edit
-    @object = find_resource
-    
-
     render_errors(['edit endpoint not supported'], 404)
   end
 
