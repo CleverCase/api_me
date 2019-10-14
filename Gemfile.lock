@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    api_me (0.10.6)
+    api_me (0.10.7)
       actionview (>= 4.2.11.1)
       active_model_serializers (~> 0.10.6)
       activejob (>= 4.2.11)
@@ -100,7 +100,7 @@ GEM
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.11.3)
-    nio4r (2.4.0)
+    nio4r (2.5.2)
     nokogiri (1.10.4)
       mini_portile2 (~> 2.4.0)
     parallel (1.12.1)
@@ -172,7 +172,7 @@ GEM
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-progressbar (1.9.0)
     search_object (1.2.2)
-    sprockets (3.7.2)
+    sprockets (4.0.0)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
     sprockets-rails (3.2.1)
