@@ -9,6 +9,21 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 ### Security
 
+## [0.11.1] - 2020-01-07
+### Added
+  * Base controller concern now responds to `ActiveRecord::RecordNotDestroyed` ([@jweakley][])
+  * Base controller concern now responds to `ActiveRecord::ReadOnlyRecord` ([@jweakley][])
+### Changed
+  No changes
+### Deprecated
+  No changes
+### Removed
+  No changes
+### Fixed
+  No changes
+### Security
+  No changes
+
 ## [0.10.5] - 2019-06-25
 ### Added
   No changes
