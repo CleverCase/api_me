@@ -95,7 +95,7 @@ module ApiMe
   end
 
   def new
-    render_errors(['new endpoint not supported'], 404)
+    render_errors(['new endpoint not supported'], :not_found)
   end
 
   def create
@@ -103,11 +103,11 @@ module ApiMe
     authorize_resource @object
     create_resource!
 
-    render status: 201, json: @object, root: singular_root_key, serializer: serializer_klass
+    render status: :created, json: @object, root: singular_root_key, serializer: serializer_klass
   end
 
   def edit
-    render_errors(['edit endpoint not supported'], 404)
+    render_errors(['edit endpoint not supported'], :not_found)
   end
 
   def update
@@ -116,7 +116,7 @@ module ApiMe
     authorize_resource @object
     update_resource!
 
-    head 204
+    render status: :ok, json: @object, root: singular_root_key, serializer: serializer_klass
   end
 
   def destroy
@@ -124,7 +124,7 @@ module ApiMe
     authorize_resource @object
     destroy_resource!
 
-    head 204
+    head :no_content
   end
 
   protected
@@ -149,7 +149,7 @@ module ApiMe
     params[:sort]
   end
 
-  def render_errors(errors, status = 422)
+  def render_errors(errors, status = :unprocessable_entity)
     render(json: { errors: errors }, status: status)
   end
 
@@ -161,11 +161,11 @@ module ApiMe
 
   def user_not_authorized
     payload = { message: "User is not allowed to access #{params[:action]} on this resource" }
-    render json: payload, status: 403
+    render json: payload, status: :forbidden
   end
 
   def resource_not_found
-    head 404
+    head :not_found
   end
 
   def model_klass
@@ -227,7 +227,7 @@ module ApiMe
   end
 
   def find_resource
-    @find_resource ||= model_klass.find_by_id!(params[:id])
+    @find_resource ||= model_klass.find_by!(id: params[:id])
   end
 
   def build_resource

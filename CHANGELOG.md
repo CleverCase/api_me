@@ -9,6 +9,20 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 ### Security
 
+## [0.12.0] - 2020-01-10
+### Added
+  No changes
+### Changed
+  * Update action now responds with the resource instead of nothing. ([@jweakley][])
+### Deprecated
+  No changes
+### Removed
+  No changes
+### Fixed
+  No changes
+### Security
+  No changes
+
 ## [0.11.1] - 2020-01-07
 ### Added
   * Base controller concern now responds to `ActiveRecord::RecordNotDestroyed` ([@jweakley][])
