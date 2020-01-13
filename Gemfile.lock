@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    api_me (0.11.1)
+    api_me (0.12.0)
       actionview (>= 4.2.11.1)
       active_model_serializers (~> 0.10.6)
       activejob (>= 4.2.11)
