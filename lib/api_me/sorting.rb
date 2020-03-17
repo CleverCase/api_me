@@ -2,11 +2,14 @@
 
 module ApiMe
   class Sorting
+    attr_reader :custom_sort_options
     attr_accessor :sort_criteria, :sort_reverse, :scope
 
-    def initialize(scope:, sort_params:)
+    def initialize(scope:, sort_params:, custom_sort_options: {})
       self.scope = scope
+
       return unless sort_params
+
       self.sort_criteria = sort_params[:criteria] || default_sort_criteria
       self.sort_reverse = sort_params[:reverse] || false
     end
@@ -39,7 +42,14 @@ module ApiMe
     end
 
     def sorted_scope(criteria)
-      if sort_reverse === 'true'
+      criteria_key = criteria.to_sym
+      if custom_sort_options.key?(criteria_key)
+        if sort_reverse == 'true'
+          custom_sort_scope(criteria_key).order("#{custom_sort_options[criteria_key][:column]} DESC")
+        else
+          custom_sort_scope(criteria_key).order("#{custom_sort_options[criteria_key][:column]} ASC")
+        end
+      elsif sort_reverse == 'true'
         scope.order(criteria => :desc)
       else
         scope.order(criteria => :asc)
@@ -47,6 +57,10 @@ module ApiMe
     end
 
     private
+
+    def custom_sort_scope(criteria)
+      custom_sort_options[criteria].key?(:joins) ? scope.joins(custom_sort_options[criteria][:joins]) : scope
+    end
 
     def default_sort_criteria
       'id'
