@@ -235,11 +235,11 @@ module ApiMe
   end
 
   def create_resource!
-    @object.save!(object_params)
+    @object.save!
   end
 
   def update_resource!
-    @object.save!(object_params)
+    @object.save!
   end
 
   def destroy_resource!
