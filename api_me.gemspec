@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails',                    '>= 4.2'
   s.add_dependency 'actionview',               '>= 4.2.11.1'
   s.add_dependency 'activejob',                '>= 4.2.11'
-  s.add_dependency 'pundit',                   '~> 1.0'
+  s.add_dependency 'pundit',                   '~> 2.0'
   s.add_dependency 'active_model_serializers', '~> 0.10.6'
   s.add_dependency 'search_object',            '~> 1.0'
   s.add_dependency 'kaminari',                 '~> 1.0'
