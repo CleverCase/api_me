@@ -138,7 +138,15 @@ module ApiMe
   end
 
   def object_params
-    params.require(params_klass_symbol).permit(*policy(@object || model_klass).permitted_attributes)
+    permitted_attributes(@object)
+  end
+  
+  def pundit_params_for(_record)
+    if params_klass_symbol
+      params.require(params_klass_symbol)
+    else
+      params.require(PolicyFinder.new(record).param_key)
+    end
   end
 
   def page_params
