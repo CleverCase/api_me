@@ -9,6 +9,21 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 ### Security
 
+## [0.13.0] - 2020-08-27
+### Added
+  No changes
+### Changed
+  * `create_resource!` and `update_resource!` no longer take params ([@Samsinite][])
+  * Controllers can now have custom sorting options ([@Samsinite][])
+### Deprecated
+  No changes
+### Removed
+  No changes
+### Fixed
+  No changes
+### Security
+  Several Dependency Updates
+
 ## [0.12.0] - 2020-01-10
 ### Added
   No changes
