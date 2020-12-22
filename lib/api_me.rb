@@ -9,6 +9,7 @@ require 'api_me/version'
 require 'api_me/base_filter'
 require 'api_me/sorting'
 require 'api_me/pagination'
+require 'api_me/csv_stream_writer'
 
 module ApiMe
   extend ActiveSupport::Concern
@@ -76,15 +77,39 @@ module ApiMe
     @sorted_scope = sort_scope(@filter_scope)
     @pagination_object = paginate_scope(@sorted_scope, page_params)
 
-    render(
-      json: @pagination_object.results,
-      root: collection_root_key,
-      each_serializer: serializer_klass,
-      meta: {
-        page: @pagination_object.page_meta,
-        sort: sorting_meta(@filter_scope)
-      }
-    )
+    respond_to do |format|
+      format.csv do
+        @csv_includes_scope = csv_includes_scope(@sorted_scope)
+        response.headers['Content-Type'] = 'text/csv'
+        response.headers['Cache-Control'] = 'no-cache'
+        # Hack to work around https://github.com/rack/rack/issues/1619
+        response.headers['Last-Modified'] = Time.current.httpdate
+        # Disable gzip in nginx
+        response.headers['X-Accel-Buffering'] = 'no'
+        response.headers['Content-Disposition'] = "attachment; filename=\"#{csv_filename}\""
+
+        ::ApiMe::CsvStreamWriter.generate(response.stream) do |csv|
+          # headers
+          csv << csv_headers
+          @csv_includes_scope.find_each do |object|
+            csv << object.try('to_csv')
+          end
+        end
+      ensure
+        response.stream.close
+      end
+      format.all do
+        render(
+          json: @pagination_object.results,
+          root: collection_root_key,
+          each_serializer: serializer_klass,
+          meta: {
+            page: @pagination_object.page_meta,
+            sort: sorting_meta(@filter_scope)
+          }
+        )
+      end
+    end
   end
 
   def show
@@ -128,6 +153,18 @@ module ApiMe
   end
 
   protected
+
+  def csv_filename
+    "#{model_klass.name.dasherize}-#{Time.zone.now.to_date.to_s(:default)}.csv"
+  end
+
+  def csv_headers
+    model_klass.respond_to?('csv_headers') ? model_klass.csv_headers : []
+  end
+
+  def csv_includes_scope(scope)
+    scope
+  end
 
   def singular_root_key
     model_klass.name.singularize.underscore

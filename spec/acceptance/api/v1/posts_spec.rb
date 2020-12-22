@@ -152,4 +152,13 @@ describe 'Posts API', type: :api do # rubocop:disable Metrics/BlockLength
     expect(json.first['posts']['name']).to eq('Post19')
     expect(json.length).to eq(10)
   end
+
+  it 'exports to csv' do
+    post = Post.create(name: 'Post')
+
+    get '/api/v1/posts.csv'
+
+    expect(last_response.status).to eq(200)
+    expect(last_response.body).to eq("\n#{post.id},#{post.name}\n")
+  end
 end
