@@ -9,6 +9,34 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 ### Security
 
+## [0.14.1] - 2021-02-02
+### Added
+  No changes
+### Changed
+  No changes
+### Deprecated
+  No changes
+### Removed
+  No changes
+### Fixed
+  Fixed a bug where streaming was not working properly.
+### Security
+  No changes
+
+## [0.14.0] - 2020-12-20
+### Added
+  Support for CSV streaming
+### Changed
+  No changes
+### Deprecated
+  No changes
+### Removed
+  No changes
+### Fixed
+  No changes
+### Security
+  No changes
+
 ## [0.13.0] - 2020-08-27
 ### Added
   No changes

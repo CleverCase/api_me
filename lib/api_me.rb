@@ -13,9 +13,11 @@ require 'api_me/csv_stream_writer'
 
 module ApiMe
   extend ActiveSupport::Concern
-  include ::Pundit
 
   included do
+    include ::Pundit
+    include ActionController::Live
+
     rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
     rescue_from ActiveRecord::RecordInvalid, with: :handle_active_record_errors
     rescue_from ActiveRecord::RecordNotDestroyed, with: :handle_active_record_errors
