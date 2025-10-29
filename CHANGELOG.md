@@ -1,12 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [0.14.2] - 2025-10-29
 ### Added
 ### Changed
 ### Deprecated
 ### Removed
 ### Fixed
+  * Fixed an issue with generating CSV files due to a Rails 7.2 incompatibility.
 ### Security
 
 ## [0.14.1] - 2021-02-02
