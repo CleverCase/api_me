@@ -157,7 +157,7 @@ module ApiMe
   protected
 
   def csv_filename
-    "#{model_klass.name.dasherize}-#{Time.zone.now.to_date.to_s(:default)}.csv"
+    "#{model_klass.name.dasherize}-#{Time.zone.now.to_date.to_fs(:default)}.csv"
   end
 
   def csv_headers
